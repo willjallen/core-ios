@@ -26,6 +26,7 @@ class Topic extends Component {
     console.log("ok");
   }
   //hello
+  //hello
 
   renderItem({ item, index }) {
     return (
