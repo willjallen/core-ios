@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-class Profile extends Component {
+class TopicSingleView extends Component {
   render() {
     return (
       <View>
-        <Text style={{ justifyContent: "center" }}>Profile</Text>
+        <Text style={{ justifyContent: "center" }}>TopicSingleView</Text>
       </View>
     );
   }
 }
 
-export default Profile;
+export default TopicSingleView;
 
 const styles = StyleSheet.create({
   container: {
