@@ -25,6 +25,7 @@ class Topic extends Component {
     this.setState({ ready: true });
     console.log("ok");
   }
+  //hello
 
   renderItem({ item, index }) {
     return (
