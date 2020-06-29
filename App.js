@@ -1,28 +1,36 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  SafeAreaView,
-  Alert,
-  Button,
-  Platform,
-  StatusBar,
-} from "react-native";
+import { StyleSheet, Platform, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Feed from "./Components/AppTabNavigator/feed";
 import Core from "./Components/AppTabNavigator/core";
-import Topic from "./Components/AppTabNavigator/topics";
+import Profile from "./Components/profile";
 import Ionicons from "@expo/vector-icons/Ionicons";
-//import MainScreen from "./Components/MainScreen";
-//import { Icon } from "native-base";
+import Topic from "./Components/topics";
+import { createStackNavigator } from "@react-navigation/stack";
+import TopicSingleView from "./Components/TopicSingleView";
 
 const tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+const topicStack = createStackNavigator();
+const coreStack = createStackNavigator();
+
+function topicNavigateFunc() {
+  return (
+    <topicStack.Navigator headerMode={"none"}>
+      <topicStack.Screen name="Topic" component={Topic} />
+      <topicStack.Screen name="TopicSingleView" component={TopicSingleView} />
+    </topicStack.Navigator>
+  );
+}
+
+function coreNavigateFunc() {
+  return (
+    <coreStack.Navigator headerMode={"none"}>
+      <coreStack.Screen name="Core" component={Core} />
+      <coreStack.Screen name="Profile" component={Profile} />
+    </coreStack.Navigator>
+  );
+}
 
 export default function App() {
   return (
@@ -49,26 +57,12 @@ export default function App() {
         }}
       >
         <tab.Screen name="feed" component={Feed} />
-        <tab.Screen name="core" component={Core} />
-        <tab.Screen name="topics" component={Topic} />
+        <tab.Screen name="core" component={coreNavigateFunc} />
+        <tab.Screen name="topics" component={topicNavigateFunc} />
       </tab.Navigator>
     </NavigationContainer>
   );
 }
-
-/*<NavigationContainer independent={true}>
-<Stack.Navigator>
-  <Stack.Screen
-    name="Core"
-    component={MainScreen}
-    options={{
-      headerRight: (props) => (
-        <Icon style={{ paddingRight: 20 }} name="ios-add" />
-      ),
-    }}
-  />
-</Stack.Navigator>
-</NavigationContainer>*/
 
 const styles = StyleSheet.create({
   container: {
