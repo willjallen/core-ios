@@ -2,11 +2,11 @@ import React from "react";
 import { StyleSheet, Platform, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Feed from "./Components/AppTabNavigator/feed";
-import Core from "./Components/AppTabNavigator/core";
+import Feed from "./Components/AppTabNavigator/FeedTab";
+import Core from "./Components/AppTabNavigator/CoreTab";
 import Profile from "./Components/profile";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import Topic from "./Components/topics";
+import Topic from "./Components/Topics";
 import { createStackNavigator } from "@react-navigation/stack";
 import TopicSingleView from "./Components/TopicSingleView";
 
