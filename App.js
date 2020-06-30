@@ -1,14 +1,45 @@
+// React Components
 import React from "react";
 import { StyleSheet, Platform, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+
+import Ionicons from "@expo/vector-icons/Ionicons";
+
+// Navigators
 import Feed from "./Components/AppTabNavigator/FeedTab";
 import Core from "./Components/AppTabNavigator/CoreTab";
-import Profile from "./Components/Profile";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import Topic from "./Components/Topics";
-import { createStackNavigator } from "@react-navigation/stack";
+
+// Components
 import TopicSingleView from "./Components/TopicSingleView";
+import Profile from "./Components/Profile";
+import Topic from "./Components/Topics";
+
+// Redux-saga
+import { createStore, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
+
+// Reducers
+import reducer from './reducers/reducer'
+
+// Redux generators
+import { helloSaga } from './sagas/sagas'
+
+
+
+
+// Sagae-redux handling
+const sagaMiddleware = createSagaMiddleware()
+const store = createStore(
+  reducer,
+  applyMiddleware(sagaMiddleware)
+)
+sagaMiddleware.run(helloSaga)
+
+const action = type => store.dispatch({type})
+
+
 
 const tab = createBottomTabNavigator();
 const topicStack = createStackNavigator();
