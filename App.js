@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Feed from "./Components/AppTabNavigator/FeedTab";
 import Core from "./Components/AppTabNavigator/CoreTab";
-import Profile from "./Components/profile";
+import Profile from "./Components/Profile";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Topic from "./Components/Topics";
 import { createStackNavigator } from "@react-navigation/stack";
