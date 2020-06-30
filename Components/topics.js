@@ -11,6 +11,11 @@ import { Header } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 
+/*
+    Main Screen for Topics
+ */
+
+// SUGGESTION: Change Topic to Topics for file naming consistency
 function Topic() {
   //async componentDidMount() {}
   const navigation = useNavigation();

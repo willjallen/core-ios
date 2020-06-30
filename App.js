@@ -17,8 +17,8 @@ const coreStack = createStackNavigator();
 function topicNavigateFunc() {
   return (
     <topicStack.Navigator headerMode={"none"}>
-      <topicStack.Screen name="Topic" component={Topic} />
-      <topicStack.Screen name="TopicSingleView" component={TopicSingleView} />
+      <topicStack.Screen name="Topic" component={Topic}/>
+      <topicStack.Screen name="TopicSingleView" component={TopicSingleView}/>
     </topicStack.Navigator>
   );
 }
@@ -26,8 +26,8 @@ function topicNavigateFunc() {
 function coreNavigateFunc() {
   return (
     <coreStack.Navigator headerMode={"none"}>
-      <coreStack.Screen name="Core" component={Core} />
-      <coreStack.Screen name="Profile" component={Profile} />
+      <coreStack.Screen name="Core" component={Core}/>
+      <coreStack.Screen name="Profile" component={Profile}/>
     </coreStack.Navigator>
   );
 }
@@ -48,7 +48,7 @@ export default function App() {
             }
 
             // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
+            return <Ionicons name={iconName} size={size} color={color}/>;
           },
         })}
         tabBarOptions={{
@@ -56,9 +56,9 @@ export default function App() {
           inactiveTintColor: "black",
         }}
       >
-        <tab.Screen name="feed" component={Feed} />
-        <tab.Screen name="core" component={coreNavigateFunc} />
-        <tab.Screen name="topics" component={topicNavigateFunc} />
+        <tab.Screen name="feed" component={Feed}/>
+        <tab.Screen name="core" component={coreNavigateFunc}/>
+        <tab.Screen name="topics" component={topicNavigateFunc}/>
       </tab.Navigator>
     </NavigationContainer>
   );
