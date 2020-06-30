@@ -14,7 +14,7 @@ import Core from "./Components/AppTabNavigator/CoreTab";
 // Components
 import TopicSingleView from "./Components/TopicSingleView";
 import Profile from "./Components/Profile";
-import Topic from "./Components/Topics";
+import Topic from "./Components/Topics/Main";
 
 // Redux-saga
 import { createStore, applyMiddleware } from 'redux'
@@ -35,7 +35,7 @@ const store = createStore(
   reducer,
   applyMiddleware(sagaMiddleware)
 )
-sagaMiddleware.run(helloSaga)
+//sagaMiddleware.run(helloSaga)
 
 const action = type => store.dispatch({type})
 
