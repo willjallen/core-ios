@@ -1,32 +1,26 @@
 // React Components
 import React from "react";
-import { StyleSheet, Platform, StatusBar } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
+import {Platform, StatusBar, StyleSheet} from "react-native";
+import {NavigationContainer} from "@react-navigation/native";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import {createStackNavigator} from "@react-navigation/stack";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
-
 // Navigators
 import Feed from "./Components/FeedPage/FeedTab";
 import Core from "./Components/CorePage/Main";
-
 // Components
 import TopicSingleView from "./Components/TopicSingleView";
 import Profile from "./Components/Profile";
 import Topic from "./Components/TopicsPage/Main";
-
+import LoginScreen from "./Components/LoginPage/LoginScreen";
 // Redux-saga
-import { createStore, applyMiddleware } from 'redux'
+import {applyMiddleware, createStore} from 'redux'
 import createSagaMiddleware from 'redux-saga'
-
 // Reducers
 import reducer from './reducers/reducer'
-
 // Redux generators
-import { helloSaga } from './sagas/sagas'
-
-
+import {helloSaga} from './sagas/sagas'
 
 
 // Sagae-redux handling
@@ -44,6 +38,9 @@ const action = type => store.dispatch({type})
 const tab = createBottomTabNavigator();
 const topicStack = createStackNavigator();
 const coreStack = createStackNavigator();
+
+const loginStack = createStackNavigator();
+const mainStack = createStackNavigator();
 
 function topicNavigateFunc() {
   return (
@@ -63,13 +60,20 @@ function coreNavigateFunc() {
   );
 }
 
+
+
 /*
 If no login cookie is present, navigate to login page
 Otherwise navigate to Main
 */
 export default function App() {
+
+    // Get this from deep storage later
+    let isLoggedIn = true;
+
   return (
-    <NavigationContainer>
+    <NavigationContainer>{
+        isLoggedIn ? (
       <tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
@@ -95,7 +99,14 @@ export default function App() {
         <tab.Screen name="core" component={coreNavigateFunc}/>
         <tab.Screen name="topics" component={topicNavigateFunc}/>
       </tab.Navigator>
-    </NavigationContainer>
+      ) : (
+         <loginStack.Navigator>
+            <loginStack.Screen name = "login" component = {LoginScreen}  options={{headerShown:false}}/>
+         </loginStack.Navigator>
+         )
+
+
+    }</NavigationContainer>
   );
 }
 
