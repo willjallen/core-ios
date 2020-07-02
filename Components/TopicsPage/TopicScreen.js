@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Header from './Header';
+import TopicScreenHeader from './TopicScreenHeader';
 import Topics from './Topics';
 import {
   View,
@@ -11,7 +11,7 @@ export default class TopicScreen extends Component {
   render() {
     return (
       <View>
-        <Header/>
+        <TopicScreenHeader/>
         <Topics/>
       </View>
     );
