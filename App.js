@@ -63,6 +63,10 @@ function coreNavigateFunc() {
   );
 }
 
+/*
+If no login cookie is present, navigate to login page
+Otherwise navigate to Main
+*/
 export default function App() {
   return (
     <NavigationContainer>

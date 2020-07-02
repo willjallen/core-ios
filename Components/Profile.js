@@ -1,12 +1,29 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  FlatList,
+} from "react-native";
 import { Container, Content, Icon, Button } from "native-base";
 
 /*
     Main Screen for User Profile
  */
+var { width, height } = Dimensions.get("window");
 
 class Profile extends Component {
+  renderImage() {
+    return (
+      <Image
+        source={{ uri: "https://picsum.photos/75/75" }}
+        style={{ width: width / 3, height: width / 3 }}
+      />
+    );
+  }
+
   render() {
     return (
       <Container>
@@ -47,6 +64,32 @@ class Profile extends Component {
                 ></Icon>
               </Button>
             </View>
+          </View>
+          <View
+            style={{
+              marginTop: 5,
+              borderTopWidth: 1,
+              borderTopColor: "black",
+              flexDirection: "row",
+              flexWrap: "wrap",
+            }}
+          >
+            <FlatList
+              numColumns={2}
+              onEndReachedThreshold={0}
+              onEndReached={({ distanceFromEnd }) => {
+                console.debug("on end reached ", distanceFromEnd);
+              }}
+              data={[
+                { key: "a" },
+                { key: "b" },
+                { key: "c" },
+                { key: "d" },
+                { key: "e" },
+                { key: "f" },
+              ]}
+              renderItem={this.renderImage}
+            />
           </View>
         </Content>
       </Container>
