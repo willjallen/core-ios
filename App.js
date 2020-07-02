@@ -8,13 +8,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 // Navigators
-import Feed from "./Components/AppTabNavigator/FeedTab";
-import Core from "./Components/AppTabNavigator/CoreTab";
+import Feed from "./Components/FeedPage/FeedTab";
+import Core from "./Components/CorePage/Main";
 
 // Components
 import TopicSingleView from "./Components/TopicSingleView";
 import Profile from "./Components/Profile";
-import Topic from "./Components/Topics/Main";
+import Topic from "./Components/TopicsPage/Main";
 
 // Redux-saga
 import { createStore, applyMiddleware } from 'redux'

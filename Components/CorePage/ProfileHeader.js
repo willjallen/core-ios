@@ -11,7 +11,7 @@ import {
 } from "native-base";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-class CoreCardComponent extends Component {
+export default class ProfileScreenHeader extends Component {
   render() {
     return (
       <Card style={{ borderRadius: 10 }}>
@@ -66,7 +66,7 @@ class CoreCardComponent extends Component {
   }
 }
 
-export default CoreCardComponent;
+
 
 const styles = StyleSheet.create({
   container: {
