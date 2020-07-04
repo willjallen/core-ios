@@ -8,6 +8,10 @@ import {
   FlatList,
 } from "react-native";
 import { Container, Content, Icon, Button } from "native-base";
+import {
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
 
 /*
     Main Screen for User Profile
@@ -17,10 +21,12 @@ var { width, height } = Dimensions.get("window");
 class Profile extends Component {
   renderImage() {
     return (
-      <Image
-        source={{ uri: "https://picsum.photos/75/75" }}
-        style={{ width: width / 3, height: width / 3 }}
-      />
+      <TouchableOpacity>
+        <Image
+          source={{ uri: "https://picsum.photos/75/75" }}
+          style={{ width: width / 3, height: width / 3 }}
+        />
+      </TouchableOpacity>
     );
   }
 
@@ -75,7 +81,7 @@ class Profile extends Component {
             }}
           >
             <FlatList
-              numColumns={2}
+              numColumns={3}
               onEndReachedThreshold={0}
               onEndReached={({ distanceFromEnd }) => {
                 console.debug("on end reached ", distanceFromEnd);
@@ -91,6 +97,31 @@ class Profile extends Component {
               renderItem={this.renderImage}
             />
           </View>
+          <View
+            style={{
+              padding: 15,
+              justifyContent: "center",
+              alignItems: "center ",
+            }}
+          >
+            <Text style={{ fontSize: 20 }}>"Something about weed" - Nick</Text>
+          </View>
+          <FlatList
+            numColumns={3}
+            onEndReachedThreshold={0}
+            onEndReached={({ distanceFromEnd }) => {
+              console.debug("on end reached ", distanceFromEnd);
+            }}
+            data={[
+              { key: "a" },
+              { key: "b" },
+              { key: "c" },
+              { key: "d" },
+              { key: "e" },
+              { key: "f" },
+            ]}
+            renderItem={this.renderImage}
+          />
         </Content>
       </Container>
     );
