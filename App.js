@@ -23,7 +23,7 @@ import reducer from './reducers/reducer'
 import {helloSaga} from './sagas/sagas'
 
 // Contexts
-import { SessionProvider } from './Components/Contexts/SessionContext'
+import SessionContext  from './Components/Contexts/SessionContext'
 
 
 // Sagae-redux handling
@@ -81,15 +81,16 @@ export default class App extends Component {
     constructor(props){
         super(props);
         this.updateSession = () => {
-            this.setState(state => ({
+            this.setState({
                 isLoggedIn : true
-            }));
+            });
+            console.log(this.state.isLoggedIn);
         };
 
         // State also contains the updater function so it will
         // be passed down into the context provider
         this.state = {
-            isLoggedIn: true,
+            isLoggedIn: false,
             updateSession: this.updateSession,
         };
 
@@ -102,11 +103,10 @@ export default class App extends Component {
     }
 
   render() {
-      const sessionState = { loggedIn: true }
       return (
-          <SessionContext.Provider value={sessionState}>
+          <SessionContext.Provider value={this.state}>
           <NavigationContainer>{
-              this.context.loggedIn ? (
+              this.state.isLoggedIn ? (
                   <>
                       <tab.Navigator
                           screenOptions={({route}) => ({
