@@ -1,5 +1,5 @@
 // React Components
-import React from "react";
+import React, {Component} from "react";
 import {Platform, StatusBar, StyleSheet} from "react-native";
 import {NavigationContainer} from "@react-navigation/native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
@@ -21,6 +21,9 @@ import createSagaMiddleware from 'redux-saga'
 import reducer from './reducers/reducer'
 // Redux generators
 import {helloSaga} from './sagas/sagas'
+
+// Contexts
+import SessionContext  from './Components/Contexts/SessionContext'
 
 
 // Sagae-redux handling
@@ -62,52 +65,87 @@ function coreNavigateFunc() {
 
 
 
+
+
 /*
 If no login cookie is present, navigate to login page
 Otherwise navigate to Main
 */
-export default function App() {
-
-    // Get this from deep storage later
-    let isLoggedIn = true;
-
-  return (
-    <NavigationContainer>{
-        isLoggedIn ? (
-      <tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            if (route.name === "core") {
-              iconName = focused ? "ios-disc" : "ios-disc";
-            } else if (route.name === "feed") {
-              iconName = focused ? "ios-home" : "ios-home";
-            } else if (route.name === "topics") {
-              iconName = focused ? "ios-paper" : "ios-paper";
-            }
-
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color}/>;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: "tomato",
-          inactiveTintColor: "black",
-        }}
-      >
-        <tab.Screen name="feed" component={Feed}/>
-        <tab.Screen name="core" component={coreNavigateFunc}/>
-        <tab.Screen name="topics" component={topicNavigateFunc}/>
-      </tab.Navigator>
-      ) : (
-         <loginStack.Navigator>
-            <loginStack.Screen name = "login" component = {LoginScreen}  options={{headerShown:false}}/>
-         </loginStack.Navigator>
-         )
+export default class App extends Component {
 
 
-    }</NavigationContainer>
-  );
+    /*
+        NONE OF THIS IS FINISHED
+        LoginScreen is broke & disabled by default I will fix it soon
+     */
+    constructor(props){
+        super(props);
+        this.updateSession = () => {
+            this.setState({
+                isLoggedIn : true
+            });
+            console.log(this.state.isLoggedIn);
+        };
+
+        // State also contains the updater function so it will
+        // be passed down into the context provider
+        this.state = {
+            isLoggedIn: false,
+            updateSession: this.updateSession,
+        };
+
+    }
+
+    setLoginState(value){
+        let sessionState = this.state.session;
+        sessionState.loggedIn = value;
+        this.setState({session : sessionState});
+    }
+
+  render() {
+      return (
+          <SessionContext.Provider value={this.state}>
+          <NavigationContainer>{
+              this.state.isLoggedIn ? (
+                  <>
+                      <tab.Navigator
+                          screenOptions={({route}) => ({
+                              tabBarIcon: ({focused, color, size}) => {
+                                  let iconName;
+                                  if (route.name === "core") {
+                                      iconName = focused ? "ios-disc" : "ios-disc";
+                                  } else if (route.name === "feed") {
+                                      iconName = focused ? "ios-home" : "ios-home";
+                                  } else if (route.name === "topics") {
+                                      iconName = focused ? "ios-paper" : "ios-paper";
+                                  }
+
+                                  // You can return any component that you like here!
+                                  return <Ionicons name={iconName} size={size} color={color}/>;
+                              },
+                          })}
+                          tabBarOptions={{
+                              activeTintColor: "tomato",
+                              inactiveTintColor: "black",
+                          }}
+                      >
+                          <tab.Screen name="feed" component={Feed}/>
+                          <tab.Screen name="core" component={coreNavigateFunc}/>
+                          <tab.Screen name="topics" component={topicNavigateFunc}/>
+                      </tab.Navigator>
+
+                  </>
+              ) : (
+                  <>
+                      <loginStack.Navigator>
+                          <loginStack.Screen name="login" component={LoginScreen} options={{headerShown: false}} setLoginState={this.setLoginState}/>
+                      </loginStack.Navigator>
+                  </>
+              )
+          }</NavigationContainer>
+          </SessionContext.Provider>
+      );
+  }
 }
 
 const styles = StyleSheet.create({

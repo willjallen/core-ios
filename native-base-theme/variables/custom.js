@@ -29,4 +29,5 @@ export default {
 "borderRadiusBase":2,
 "borderWidth":0.5,
 "contentPadding":10,
+"btnColor":"fff",
 }

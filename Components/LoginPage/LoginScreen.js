@@ -1,37 +1,55 @@
 import React, {Component} from "react";
 import {StyleSheet, Text, View} from "react-native";
-import {Button, Form, Input, Item, StyleProvider} from "native-base";
-import getTheme from '../../native-base-theme/components';
-import custom from '../../native-base-theme/variables/custom';
+import {Button, Container, Form, Header, Input, Item, StyleProvider} from "native-base";
+import SessionContext from "../Contexts/SessionContext";
 
 
 export default class LoginScreen extends Component {
 
+
+	constructor(props){
+		super(props);
+		console.log(props);
+
+	}
+
+	handleLogin(){
+		this.props.setLoginState(true);
+	}
+
+
+
 	render(){
 		return(
-            <StyleProvider style={getTheme(custom)}>
-			<View style={styles.container}>
+            <Container style={styles.container}>
+				<Text style={styles.header}>CORE</Text>
 				<Form style={styles.form}>
+					<View style={{height: 60}}>
+						<Item fixedLabel style={{marginLeft: 0}}>
+							<Input placeholderTextColor={"white"} style={{ color: "#fff" }}  placeholder="Username"/>
+						</Item>
+					</View>
+                    <View style={{height: 60, paddingBottom: 100}}>
+						<Item fixedLabel style={{marginLeft: 0}}>
+							<Input placeholderTextColor={"white"} style={{ color: "#fff" }}  placeholder="Password"/>
+						</Item>
+					</View>
 					<View style={{height: 100}}>
-						<Item fixedLabel rounded={true}>
-							<Input placeholderTextColor={"white"} color={"white"} placeholder="Username"/>
-						</Item>
-					</View>
-                    <View style={{height: 100}}>
-						<Item fixedLabel rounded={true}>
-							<Input placeholderTextColor={"white"} placeholder="Password"/>
-						</Item>
-					</View>
-					<View>
-							<Button rounded light>
-								<Text>Click Me!</Text>
+							<Button style={{justifyContent: "center", backgroundColor: "#fff", opacity: 0.8}}>
+								<Text style={{color: "#000", opacity: 1.0, fontSize: 18}}>Log In</Text>
 							</Button>
+                    </View>
+					<View>
+						<SessionContext.Consumer>
+                            {({updateSession}) => (
+							<Button style={{justifyContent: "center", backgroundColor: "#fff", opacity: 0.8}} onClick={updateSession}>
+								<Text style={{color: "#000", opacity: 1.0, fontSize: 18}}>Bypass [Debug]</Text>
+							</Button>
+                            )}
+						</SessionContext.Consumer>
 					</View>
 				</Form>
-			</View>
-			</StyleProvider>
-
-
+			</Container>
 		);
 	}
 }
@@ -39,15 +57,20 @@ export default class LoginScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "black",
-        alignItems: "center",
+        backgroundColor: "#486696",
         justifyContent: "center",
 
 
     },
 	form: {
     	margin: 50,
-    	placeholderTextColor: "white",
+	},
+	header: {
+        color: 'white',
+        fontFamily: 'Palatino',
+        fontSize: 48,
+        fontWeight: 'bold',
+        textAlign: 'center',
 	}
 })
 

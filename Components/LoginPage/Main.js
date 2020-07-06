@@ -11,7 +11,7 @@ import { Container, Content, Icon, Button } from "native-base";
 class Login extends Component {
   render() {
     return (
-        
+        <></>
     );
   }
 }
