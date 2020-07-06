@@ -13,9 +13,6 @@ export default class LoginScreen extends Component {
 
 	}
 
-	handleLogin(){
-		this.props.setLoginState(true);
-	}
 
 
 
