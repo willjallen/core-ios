@@ -23,7 +23,7 @@ import reducer from './reducers/reducer'
 import {helloSaga} from './sagas/sagas'
 
 // Contexts
-import SessionContext  from './Components/Contexts/SessionContext'
+import SessionContext  from './Contexts/SessionContext'
 
 
 // Sagae-redux handling

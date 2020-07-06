@@ -61,13 +61,13 @@ class Profile extends Component {
                 <Icon
                   name="ios-chatbubbles"
                   style={{ fontSize: 40, color: "orange" }}
-                ></Icon>
+                />
               </Button>
               <Button transparent>
                 <Icon
                   name="ios-add"
                   style={{ fontSize: 40, color: "orange" }}
-                ></Icon>
+                />
               </Button>
             </View>
           </View>

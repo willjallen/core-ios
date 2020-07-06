@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {StyleSheet, Text, View} from "react-native";
 import {Button, Container, Form, Header, Input, Item, StyleProvider} from "native-base";
-import SessionContext from "../Contexts/SessionContext";
+import SessionContext from "../.././Contexts/SessionContext";
 
 
 export default class LoginScreen extends Component {
