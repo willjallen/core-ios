@@ -14,13 +14,15 @@ import TopicSingleView from "./Components/TopicSingleView";
 import Profile from "./Components/Profile";
 import Topic from "./Components/TopicsPage/Main";
 import LoginScreen from "./Components/LoginPage/LoginScreen";
+// Redux
+import { Provider } from 'react-redux';
 // Redux-saga
 import {applyMiddleware, createStore} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 // Reducers
-import reducer from './reducers/reducer'
-// Redux generators
-import {helloSaga} from './sagas/sagas'
+import combineReducers from './reducers/RootReducer'
+// Redux-saga generators
+import rootSaga from './sagas/RootSaga'
 
 // Contexts
 import SessionContext  from './Components/Contexts/SessionContext'
@@ -29,10 +31,10 @@ import SessionContext  from './Components/Contexts/SessionContext'
 // Sagae-redux handling
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
-  reducer,
+    combineReducers,
   applyMiddleware(sagaMiddleware)
 )
-//sagaMiddleware.run(helloSaga)
+sagaMiddleware.run(rootSaga);
 
 const action = type => store.dispatch({type})
 
@@ -73,11 +75,6 @@ Otherwise navigate to Main
 */
 export default class App extends Component {
 
-
-    /*
-        NONE OF THIS IS FINISHED
-        LoginScreen is broke & disabled by default I will fix it soon
-     */
     constructor(props){
         super(props);
         this.updateSession = () => {
@@ -96,54 +93,52 @@ export default class App extends Component {
 
     }
 
-    setLoginState(value){
-        let sessionState = this.state.session;
-        sessionState.loggedIn = value;
-        this.setState({session : sessionState});
-    }
+
 
   render() {
       return (
-          <SessionContext.Provider value={this.state}>
-          <NavigationContainer>{
-              this.state.isLoggedIn ? (
-                  <>
-                      <tab.Navigator
-                          screenOptions={({route}) => ({
-                              tabBarIcon: ({focused, color, size}) => {
-                                  let iconName;
-                                  if (route.name === "core") {
-                                      iconName = focused ? "ios-disc" : "ios-disc";
-                                  } else if (route.name === "feed") {
-                                      iconName = focused ? "ios-home" : "ios-home";
-                                  } else if (route.name === "topics") {
-                                      iconName = focused ? "ios-paper" : "ios-paper";
-                                  }
+          <Provider store={store}>
+              <SessionContext.Provider value={this.state}>
+              <NavigationContainer>{
+                  this.state.isLoggedIn ? (
+                      <>
+                          <tab.Navigator
+                              screenOptions={({route}) => ({
+                                  tabBarIcon: ({focused, color, size}) => {
+                                      let iconName;
+                                      if (route.name === "core") {
+                                          iconName = focused ? "ios-disc" : "ios-disc";
+                                      } else if (route.name === "feed") {
+                                          iconName = focused ? "ios-home" : "ios-home";
+                                      } else if (route.name === "topics") {
+                                          iconName = focused ? "ios-paper" : "ios-paper";
+                                      }
 
-                                  // You can return any component that you like here!
-                                  return <Ionicons name={iconName} size={size} color={color}/>;
-                              },
-                          })}
-                          tabBarOptions={{
-                              activeTintColor: "tomato",
-                              inactiveTintColor: "black",
-                          }}
-                      >
-                          <tab.Screen name="feed" component={Feed}/>
-                          <tab.Screen name="core" component={coreNavigateFunc}/>
-                          <tab.Screen name="topics" component={topicNavigateFunc}/>
-                      </tab.Navigator>
+                                      // You can return any component that you like here!
+                                      return <Ionicons name={iconName} size={size} color={color}/>;
+                                  },
+                              })}
+                              tabBarOptions={{
+                                  activeTintColor: "tomato",
+                                  inactiveTintColor: "black",
+                              }}
+                          >
+                              <tab.Screen name="feed" component={Feed}/>
+                              <tab.Screen name="core" component={coreNavigateFunc}/>
+                              <tab.Screen name="topics" component={topicNavigateFunc}/>
+                          </tab.Navigator>
 
-                  </>
-              ) : (
-                  <>
-                      <loginStack.Navigator>
-                          <loginStack.Screen name="login" component={LoginScreen} options={{headerShown: false}} setLoginState={this.setLoginState}/>
-                      </loginStack.Navigator>
-                  </>
-              )
-          }</NavigationContainer>
-          </SessionContext.Provider>
+                      </>
+                  ) : (
+                      <>
+                          <loginStack.Navigator>
+                              <loginStack.Screen name="login" component={LoginScreen} options={{headerShown: false}} setLoginState={this.setLoginState}/>
+                          </loginStack.Navigator>
+                      </>
+                  )
+              }</NavigationContainer>
+              </SessionContext.Provider>
+          </Provider>
       );
   }
 }
