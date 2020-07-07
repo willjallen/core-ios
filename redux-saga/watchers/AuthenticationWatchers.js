@@ -2,6 +2,8 @@
 import {fetchAuthToken} from "../sagas/AuthenticationSagas";
 import {takeEvery} from 'redux-saga/effects';
 
+import {FETCH_USER_AUTH_TOKEN} from "../../redux/constants/ActionTypes";
+
 export function* watchLogin() {
-    yield takeEvery('USER_AUTH_TOKEN_REQUEST', fetchAuthToken);
+    yield takeEvery(FETCH_USER_AUTH_TOKEN, fetchAuthToken);
 }

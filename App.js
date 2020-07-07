@@ -20,9 +20,9 @@ import { Provider } from 'react-redux';
 import {applyMiddleware, createStore} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 // Reducers
-import combineReducers from './reducers/RootReducer'
+import combineReducers from './redux/reducers/RootReducer'
 // Redux-saga generators
-import rootSaga from './sagas/RootSaga'
+import rootSaga from './redux-saga/sagas/RootSaga'
 
 // Contexts
 import SessionContext  from './Contexts/SessionContext'

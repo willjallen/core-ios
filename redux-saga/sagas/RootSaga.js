@@ -3,5 +3,5 @@ import {watchLogin} from "../watchers/AuthenticationWatchers";
 
 
 export default function* rootSaga(){
-   yield spawn(watchLogin());
+   yield spawn(watchLogin);
 }

@@ -1,15 +1,27 @@
-const feathers = require('@feathersjs/feathers');
-const rest = require('@feathersjs/rest-client');
+import io from 'socket.io-client';
+import feathers from '@feathersjs/feathers';
+import socketio from '@feathersjs/socketio-client';
 
-const app = feathers();
+const socket = io('localhost:3030', {
+    transports: ['websocket'],
+    forceNew: true
+});
+const client = feathers();
 
-// Connect to the same as the browser URL (only in the browser)
-const restClient = rest();
+client.configure(socketio(socket));
 
-// Connect to a different URL
-const restClient = rest('http://feathers-api.com')
 
-// Configure an AJAX library (see below) with that client
-app.configure(restClient.fetch(window.fetch));
+const testService = client.service('test-service');
+
+testService.on('created', message => console.log('Created a message', message));
+
+export function testMessage() {
+    console.log("here3");
+// Use the messages service from the server
+    testService.create({
+        text: 'Message from client'
+    });
+}
+
 
 // Connect to the `http://feathers-api.com/

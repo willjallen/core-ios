@@ -1,20 +1,26 @@
 import React, {Component} from "react";
+import { connect } from "react-redux";
 import {StyleSheet, Text, View} from "react-native";
 import {Button, Container, Form, Header, Input, Item, StyleProvider} from "native-base";
 import SessionContext from "../.././Contexts/SessionContext";
 
+import { fetchUserAuthToken } from "../../redux/actions/./AuthTokenActions";
 
-export default class LoginScreen extends Component {
+
+class LoginScreen extends Component {
 
 
 	constructor(props){
 		super(props);
-		console.log(props);
+
 
 	}
 
 
-
+	handleLoginRequest = () => {
+		this.props.fetchUserAuthToken();
+		console.log("here");
+	}
 
 	render(){
 		return(
@@ -32,7 +38,7 @@ export default class LoginScreen extends Component {
 						</Item>
 					</View>
 					<View style={{height: 100}}>
-							<Button style={{justifyContent: "center", backgroundColor: "#fff", opacity: 0.8}}>
+							<Button style={{justifyContent: "center", backgroundColor: "#fff", opacity: 0.8}} onClick={this.handleLoginRequest}>
 								<Text style={{color: "#000", opacity: 1.0, fontSize: 18}}>Log In</Text>
 							</Button>
                     </View>
@@ -50,6 +56,13 @@ export default class LoginScreen extends Component {
 		);
 	}
 }
+
+
+
+export default connect(
+	null,
+	{ fetchUserAuthToken }
+)(LoginScreen)
 
 const styles = StyleSheet.create({
     container: {

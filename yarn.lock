@@ -1221,6 +1221,15 @@
     events "^3.1.0"
     uberproto "^2.0.6"
 
+"@feathersjs/rest-client@^4.5.4":
+  version "4.5.4"
+  resolved "https://registry.yarnpkg.com/@feathersjs/rest-client/-/rest-client-4.5.4.tgz#65e225701341ef7c94b4d484e7e98acd2e179c08"
+  integrity sha512-Imu2gaP4NWFfMqmt1ANvUsvmlwN1ue7RcOk6q9EYC/CpQJCpJED5N3fHHinjh5/dNQL8YZ6NezH13DeFRYf7hA==
+  dependencies:
+    "@feathersjs/commons" "^4.5.3"
+    "@feathersjs/errors" "^4.5.3"
+    qs "^6.9.3"
+
 "@feathersjs/socketio-client@^4.5.4":
   version "4.5.4"
   resolved "https://registry.yarnpkg.com/@feathersjs/socketio-client/-/socketio-client-4.5.4.tgz#9e280e3b3f3f110a4138f6cdf252d14fe0e49d3e"
@@ -5139,7 +5148,7 @@ pump@^3.0.0:
     end-of-stream "^1.1.0"
     once "^1.3.1"
 
-qs@^6.5.0:
+qs@^6.5.0, qs@^6.9.3:
   version "6.9.4"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.4.tgz#9090b290d1f91728d3c22e54843ca44aea5ab687"
   integrity sha512-A1kFqHekCTM7cz0udomYUoYNWjBebHm/5wzU/XqrBRBNWectVH0QIiN+NEcZ0Dte5hvzHwbr8+XQmguPhJ6WdQ==
