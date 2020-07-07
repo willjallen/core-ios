@@ -12,15 +12,26 @@ class LoginScreen extends Component {
 
 	constructor(props){
 		super(props);
-
+        this.state = { userInput: "" , passwordInput: ""};
 
 	}
 
+    updateUserInput = input => {
+        this.setState({ userInput: input});
+    };
 
-	handleLoginRequest = () => {
-		this.props.fetchUserAuthToken();
+
+    updatePasswordInput = input => {
+        this.setState({ passwordInput: input });
+    };
+
+
+    handleLoginRequest = () => {
+        const {userInput, passwordInput} = this.state;
+        this.props.fetchUserAuthToken({userInput, passwordInput});
+		//dispatch({type: 'FETCH_USER_AUTH_TOKEN', payload: {userInput, passwordInput}});
 		console.log("here");
-	}
+	};
 
 	render(){
 		return(
@@ -29,12 +40,12 @@ class LoginScreen extends Component {
 				<Form style={styles.form}>
 					<View style={{height: 60}}>
 						<Item fixedLabel style={{marginLeft: 0}}>
-							<Input placeholderTextColor={"white"} style={{ color: "#fff" }}  placeholder="Username"/>
+							<Input placeholderTextColor={"white"} style={{ color: "#fff" }}  placeholder="Username" onChange={e => this.updateUserInput(e.target.value)} value={this.state.userInput}/>
 						</Item>
 					</View>
                     <View style={{height: 60, paddingBottom: 100}}>
 						<Item fixedLabel style={{marginLeft: 0}}>
-							<Input placeholderTextColor={"white"} style={{ color: "#fff" }}  placeholder="Password"/>
+							<Input placeholderTextColor={"white"} style={{ color: "#fff" }}  placeholder="Password" onChange={e => this.updatePasswordInput(e.target.value)} value={this.state.passwordInput}/>
 						</Item>
 					</View>
 					<View style={{height: 100}}>
