@@ -8,6 +8,5 @@ New packages are frequently added, when pulling most recent changes run
 
 ## Other
 
-When adding new packages remember to
-`yarn install new-package --save`
+We need help
 
