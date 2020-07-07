@@ -29,7 +29,6 @@ class LoginScreen extends Component {
     handleLoginRequest = () => {
         const {userInput, passwordInput} = this.state;
         this.props.fetchUserAuthToken({userInput, passwordInput});
-		//dispatch({type: 'FETCH_USER_AUTH_TOKEN', payload: {userInput, passwordInput}});
 		console.log("here");
 	};
 

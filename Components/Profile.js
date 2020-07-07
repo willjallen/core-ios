@@ -104,7 +104,7 @@ class Profile extends Component {
               alignItems: "center ",
             }}
           >
-            <Text style={{ fontSize: 20 }}>"Something about weed" - Nick</Text>
+            <Text style={{ fontSize: 20 }}>"Photons have mass -Henry</Text>
           </View>
           <FlatList
             numColumns={3}

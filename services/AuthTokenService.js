@@ -15,12 +15,12 @@ const testService = client.service('test-service');
 
 testService.on('created', message => console.log('Created a message', message));
 
-export function testMessage(payload) {
-    console.log(payload);
+export function testMessage(data) {
+    console.log(data.payload.content);
 // Use the messages service from the server
-    testService.create({
-        text: payload,
-    });
+//     testService.create({
+//         text: payload,
+//     });
 }
 
 
