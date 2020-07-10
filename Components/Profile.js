@@ -24,7 +24,12 @@ class Profile extends Component {
       <TouchableOpacity>
         <Image
           source={{ uri: "https://picsum.photos/75/75" }}
-          style={{ width: width / 3, height: width / 3 }}
+          style={{
+            width: width / 3 - 5,
+            height: width / 3 - 5,
+            marginRight: 5,
+            marginTop: 5,
+          }}
         />
       </TouchableOpacity>
     );
