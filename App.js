@@ -1,5 +1,5 @@
 // React Components
-import React from "react";
+import React, {Component} from "react";
 import {Platform, StatusBar, StyleSheet} from "react-native";
 import {NavigationContainer} from "@react-navigation/native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
@@ -14,22 +14,27 @@ import TopicSingleView from "./Components/TopicSingleView";
 import Profile from "./Components/Profile";
 import Topic from "./Components/TopicsPage/Main";
 import LoginScreen from "./Components/LoginPage/LoginScreen";
+// Redux
+import { Provider } from 'react-redux';
 // Redux-saga
 import {applyMiddleware, createStore} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 // Reducers
-import reducer from './reducers/reducer'
-// Redux generators
-import {helloSaga} from './sagas/sagas'
+import combineReducers from './redux/reducers/RootReducer'
+// Redux-saga generators
+import rootSaga from './redux-saga/sagas/RootSaga'
+
+// Contexts
+import SessionContext  from './Contexts/SessionContext'
 
 
 // Sagae-redux handling
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
-  reducer,
+    combineReducers,
   applyMiddleware(sagaMiddleware)
 )
-//sagaMiddleware.run(helloSaga)
+sagaMiddleware.run(rootSaga);
 
 const action = type => store.dispatch({type})
 
@@ -62,52 +67,80 @@ function coreNavigateFunc() {
 
 
 
+
+
 /*
 If no login cookie is present, navigate to login page
 Otherwise navigate to Main
 */
-export default function App() {
+export default class App extends Component {
 
-    // Get this from deep storage later
-    let isLoggedIn = true;
+    constructor(props){
+        super(props);
+        this.updateSession = () => {
+            this.setState({
+                isLoggedIn : true
+            });
+            console.log(this.state.isLoggedIn);
+        };
 
-  return (
-    <NavigationContainer>{
-        isLoggedIn ? (
-      <tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            if (route.name === "core") {
-              iconName = focused ? "ios-disc" : "ios-disc";
-            } else if (route.name === "feed") {
-              iconName = focused ? "ios-home" : "ios-home";
-            } else if (route.name === "topics") {
-              iconName = focused ? "ios-paper" : "ios-paper";
-            }
+        // State also contains the updater function so it will
+        // be passed down into the context provider
+        this.state = {
+            isLoggedIn: false,
+            updateSession: this.updateSession,
+        };
 
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color}/>;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: "tomato",
-          inactiveTintColor: "black",
-        }}
-      >
-        <tab.Screen name="feed" component={Feed}/>
-        <tab.Screen name="core" component={coreNavigateFunc}/>
-        <tab.Screen name="topics" component={topicNavigateFunc}/>
-      </tab.Navigator>
-      ) : (
-         <loginStack.Navigator>
-            <loginStack.Screen name = "login" component = {LoginScreen}  options={{headerShown:false}}/>
-         </loginStack.Navigator>
-         )
+    }
 
 
-    }</NavigationContainer>
-  );
+
+  render() {
+      return (
+          <Provider store={store}>
+              <SessionContext.Provider value={this.state}>
+              <NavigationContainer>{
+                  this.state.isLoggedIn ? (
+                      <>
+                          <tab.Navigator
+                              screenOptions={({route}) => ({
+                                  tabBarIcon: ({focused, color, size}) => {
+                                      let iconName;
+                                      if (route.name === "core") {
+                                          iconName = focused ? "ios-disc" : "ios-disc";
+                                      } else if (route.name === "feed") {
+                                          iconName = focused ? "ios-home" : "ios-home";
+                                      } else if (route.name === "topics") {
+                                          iconName = focused ? "ios-paper" : "ios-paper";
+                                      }
+
+                                      // You can return any component that you like here!
+                                      return <Ionicons name={iconName} size={size} color={color}/>;
+                                  },
+                              })}
+                              tabBarOptions={{
+                                  activeTintColor: "tomato",
+                                  inactiveTintColor: "black",
+                              }}
+                          >
+                              <tab.Screen name="feed" component={Feed}/>
+                              <tab.Screen name="core" component={coreNavigateFunc}/>
+                              <tab.Screen name="topics" component={topicNavigateFunc}/>
+                          </tab.Navigator>
+
+                      </>
+                  ) : (
+                      <>
+                          <loginStack.Navigator>
+                              <loginStack.Screen name="login" component={LoginScreen} options={{headerShown: false}} setLoginState={this.setLoginState}/>
+                          </loginStack.Navigator>
+                      </>
+                  )
+              }</NavigationContainer>
+              </SessionContext.Provider>
+          </Provider>
+      );
+  }
 }
 
 const styles = StyleSheet.create({

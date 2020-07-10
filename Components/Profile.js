@@ -66,13 +66,13 @@ class Profile extends Component {
                 <Icon
                   name="ios-chatbubbles"
                   style={{ fontSize: 40, color: "orange" }}
-                ></Icon>
+                />
               </Button>
               <Button transparent>
                 <Icon
                   name="ios-add"
                   style={{ fontSize: 40, color: "orange" }}
-                ></Icon>
+                />
               </Button>
             </View>
           </View>
@@ -109,7 +109,7 @@ class Profile extends Component {
               alignItems: "center ",
             }}
           >
-            <Text style={{ fontSize: 20 }}>"Something about weed" - Nick</Text>
+            <Text style={{ fontSize: 20 }}>"Photons have mass -Henry</Text>
           </View>
           <FlatList
             numColumns={3}

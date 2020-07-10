@@ -32,10 +32,10 @@ class Feed extends Component {
                   ])
                 }
               >
-                <Icon name="ios-add" style={{ color: "orange" }}></Icon>
+                <Icon name="ios-add" style={{ color: "orange" }}/>
               </Button>
             }
-          ></Header>
+          />
         </View>
         <Content>
           <CardComponent />
