@@ -44,7 +44,7 @@ class Feed extends Component {
     );
   }
 }
-
+//
 export default Feed;
 
 const styles = StyleSheet.create({
