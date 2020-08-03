@@ -1,11 +1,12 @@
 import React, {Component} from "react";
 import { connect } from "react-redux";
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, View, Image} from "react-native";
 import {Button, Container, Form, Header, Input, Item, StyleProvider} from "native-base";
 import SessionContext from "../.././Contexts/SessionContext";
 
 import { fetchUserAuthToken } from "../../redux/actions/./AuthTokenActions";
 
+import FiresideLogo from "../../assets/./fireside.png"
 
 class LoginScreen extends Component {
 
@@ -14,10 +15,15 @@ class LoginScreen extends Component {
 		super(props);
         this.state = { userInput: "" , passwordInput: ""};
 
+        //this.handleLoginRequest.bind(this);
+        this.debugUpdateSession.bind(this);
+        this.handleLoginRequest = this.handleLoginRequest.bind(this);
+
 	}
 
     updateUserInput = input => {
         this.setState({ userInput: input});
+        console.log(input);
     };
 
 
@@ -27,35 +33,46 @@ class LoginScreen extends Component {
 
 
     handleLoginRequest = () => {
-        const {userInput, passwordInput} = this.state;
+        //const {userInput, passwordInput} = this.state;
+        const userInput = this.state.userInput;
+        const passwordInput = this.state.userInput;
         this.props.fetchUserAuthToken({userInput, passwordInput});
-		console.log("here");
+		//console.log(userInput, passwordInput);
 	};
+
+
+
+	debugUpdateSession = () => {
+		console.log("hello");
+		console.log(this.props.setLoginState)
+		this.props.setLoginState();
+	}
 
 	render(){
 		return(
             <Container style={styles.container}>
-				<Text style={styles.header}>CORE</Text>
+				<Image style={styles.header} source={FiresideLogo} alt="Fireside"/>
+
 				<Form style={styles.form}>
-					<View style={{height: 60}}>
+					<View >
 						<Item fixedLabel style={{marginLeft: 0}}>
-							<Input placeholderTextColor={"white"} style={{ color: "#fff" }}  placeholder="Username" onChange={e => this.updateUserInput(e.target.value)} value={this.state.userInput}/>
+							<Input placeholderTextColor={"black"} style={{ color: "#000" }}  placeholder="Username" onChangeText={e => this.updateUserInput(e)} value={this.state.userInput}/>
 						</Item>
 					</View>
-                    <View style={{height: 60, paddingBottom: 100}}>
+                    <View style={{paddingBottom: 100}}>
 						<Item fixedLabel style={{marginLeft: 0}}>
-							<Input placeholderTextColor={"white"} style={{ color: "#fff" }}  placeholder="Password" onChange={e => this.updatePasswordInput(e.target.value)} value={this.state.passwordInput}/>
+							<Input placeholderTextColor={"black"} style={{ color: "#000" }}  placeholder="Password" onChangeText={e => this.updatePasswordInput(e)} value={this.state.passwordInput}/>
 						</Item>
 					</View>
-					<View style={{height: 100}}>
-							<Button style={{justifyContent: "center", backgroundColor: "#fff", opacity: 0.8}} onClick={this.handleLoginRequest}>
+					<View>
+							<Button style={{justifyContent: "center", backgroundColor: "#fff", opacity: 0.8}} onPress={this.handleLoginRequest}>
 								<Text style={{color: "#000", opacity: 1.0, fontSize: 18}}>Log In</Text>
 							</Button>
                     </View>
 					<View>
 						<SessionContext.Consumer>
                             {({updateSession}) => (
-							<Button style={{justifyContent: "center", backgroundColor: "#fff", opacity: 0.8}} onClick={updateSession}>
+							<Button style={{justifyContent: "center", backgroundColor: "#fff", opacity: 0.8}} onPress={updateSession}>
 								<Text style={{color: "#000", opacity: 1.0, fontSize: 18}}>Bypass [Debug]</Text>
 							</Button>
                             )}
@@ -77,7 +94,7 @@ export default connect(
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#486696",
+        backgroundColor: "#ffffff",
         justifyContent: "center",
 
 
@@ -86,14 +103,10 @@ const styles = StyleSheet.create({
     	margin: 50,
 	},
 	header: {
-        color: 'white',
-        fontFamily: 'Palatino',
-        fontSize: 48,
-        fontWeight: 'bold',
-        textAlign: 'center',
+		alignSelf: 'center',
 	}
 })
 
 
-
+// backgroundColor: "#486696"
 

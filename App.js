@@ -77,13 +77,14 @@ export default class App extends Component {
 
     constructor(props){
         super(props);
-        this.updateSession = () => {
+      
+      this.updateSession = () => {
             this.setState({
                 isLoggedIn : true
             });
+
             console.log(this.state.isLoggedIn);
         };
-
         // State also contains the updater function so it will
         // be passed down into the context provider
         this.state = {
@@ -92,6 +93,9 @@ export default class App extends Component {
         };
 
     }
+
+
+
 
 
 
@@ -132,7 +136,7 @@ export default class App extends Component {
                   ) : (
                       <>
                           <loginStack.Navigator>
-                              <loginStack.Screen name="login" component={LoginScreen} options={{headerShown: false}} setLoginState={this.setLoginState}/>
+                              <loginStack.Screen name="login" component={LoginScreen} options={{headerShown: false}} setLoginState={this.updateSession}/>
                           </loginStack.Navigator>
                       </>
                   )
