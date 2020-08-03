@@ -10,8 +10,14 @@ function ClockIcon(props) {
         stroke="#000"
         strokeWidth={1.5}
       />
+      <Path stroke="#000" d="M18.561 17.813V3.563" />
+      <Path
+        transform="matrix(.63691 .77094 -.73347 .67973 17.94 17.813)"
+        stroke="#000"
+        d="M0-.5h12.323"
+      />
     </Svg>
-  )
+    )
 }
 
 export default ClockIcon
