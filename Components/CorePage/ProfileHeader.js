@@ -9,6 +9,8 @@ import {
   Thumbnail,
   CardItem,
 } from "native-base";
+
+import ClockIcon from "../../assets/svg/ClockIcon"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default class ProfileScreenHeader extends Component {
@@ -25,40 +27,10 @@ export default class ProfileScreenHeader extends Component {
               <Text style={{ fontWeight: "bold" }}> Michael Hla</Text>
               <Text note> @michaelh40 </Text>
             </Body>
+
           </Left>
           <Right>
-            <Icon
-              name="pencil"
-              style={{ color: "black" }}
-              size={25}
-              onPress={() =>
-                Alert.alert("Edit Profile", "Edit profile", [
-                  {
-                    text: "Cancel",
-                  },
-                  {
-                    text: "Edit",
-                    onPress: () => console.log("edit made"),
-                  },
-                ])
-              }
-            />
-            <Icon
-              name="history"
-              style={{ color: "black", paddingTop: 10 }}
-              size={25}
-              onPress={() =>
-                Alert.alert("Show old posts", "show old posts", [
-                  {
-                    text: "Cancel",
-                  },
-                  {
-                    text: "Show",
-                    onPress: () => console.log("edit made"),
-                  },
-                ])
-              }
-            />
+            <ClockIcon/>
           </Right>
         </CardItem>
       </Card>
