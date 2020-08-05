@@ -17,10 +17,19 @@ import Posts from './Posts'
 export default class CoreScreen extends Component {
   render() {
     return (
-      <View>
-        <CoreScreenHeader/>
-        <ProfileHeader/>
-        <Posts/>
+      <View style={{flex:1}}>
+        <View style={{flex:1, backgroundColor: "#ffffff"}}>
+          <CoreScreenHeader/>
+        </View>
+
+        <View style={{flex:3, backgroundColor: "#ffffff", borderColor: '#D5D5D5', borderWidth: 1.5}}>
+          <ProfileHeader/>
+        </View>
+
+        <View style={{flex: 8, backgroundColor: "#aaaaaa"}}>
+        <Text> Hello </Text>
+        </View>
+        { /*<Posts style={{flex: 3}}/> */ }
 
 
       </View>

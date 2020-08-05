@@ -16,7 +16,48 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 export default class ProfileScreenHeader extends Component {
   render() {
     return (
-      <Card style={{ borderRadius: 10 }}>
+      <View style={{flex: 1}}>
+        <View style = {{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: '5%' }}>
+          
+          <div style = {{flex: 1}}>
+            <Thumbnail circle large
+              source={{ uri: "https://picsum.photos/199/300" }}
+              style={{ alignSelf: 'center', marginLeft: '5%' }}
+            /> 
+          </div>
+
+          <div style = {{flex: 1}}>
+            <Text style={{ fontFamily: 'Roboto', fontWeight: 500, fontSize: 18, color:'#000000' }}> Michael Hla</Text>
+            <Text> @michaelh40 </Text>  
+          </div>
+
+          <div style = {{flex: 1, justifyContent: 'center', flexDirection: 'row-reverse'}}>
+            <ClockIcon style={{position: 'absolute', right: 5, top: 15}}/>
+          </div>
+           
+        </View>
+
+        <View style = {{flex: 1}}>
+        </View>
+      </View>    
+    );
+  }
+}
+
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
+
+
+/*
+
+<Card style={{ borderRadius: 10 }}>
         <CardItem style={{ height: 100 }}>
           <Left>
             <Thumbnail
@@ -34,16 +75,4 @@ export default class ProfileScreenHeader extends Component {
           </Right>
         </CardItem>
       </Card>
-    );
-  }
-}
-
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+  */

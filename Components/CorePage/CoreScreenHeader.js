@@ -1,23 +1,21 @@
 import React, {Component} from 'react';
+import {Image, StyleSheet, View, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import { Header } from "react-native-elements";
-import {
-  View,
-  RefreshControl,
-} from "react-native";
+
+
+import FiresideLogo from "../../assets/svg/./FiresideLogo.js"
 
 export default class CoreHeader extends Component {
   render() {
     return (
-        <Header
-          linearGradientProps={{
-            colors: ["blue", "lightblue"],
-            start: { x: 0, y: 0 },
-            end: { x: 1, y: 1 },
-          }}
-          centerComponent={{ text: "CORE", style: { color: "#fff" } }}
-          rightComponent={{ icon: "add", color: "white" }}
-        />
+      <View style={{flex: 1, flexDirection: 'column-reverse', justifyContent: 'space-around', backgroundColor: "#ffffff"}}> 
+          <FiresideLogo style={{alignSelf: 'center', marginTop: '5%'}}/>
+        </View>
     );
   }
 }
+
+
+
+

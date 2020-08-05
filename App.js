@@ -27,7 +27,7 @@ import rootSaga from './redux-saga/sagas/RootSaga'
 // Contexts
 import SessionContext  from './Contexts/SessionContext'
 
-
+import { useNavigation } from '@react-navigation/native';
 // Sagae-redux handling
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
@@ -88,7 +88,7 @@ export default class App extends Component {
         // State also contains the updater function so it will
         // be passed down into the context provider
         this.state = {
-            isLoggedIn: false,
+            isLoggedIn: true,
             updateSession: this.updateSession,
         };
 
@@ -100,6 +100,7 @@ export default class App extends Component {
 
 
   render() {
+
       return (
           <Provider store={store}>
               <SessionContext.Provider value={this.state}>
@@ -126,6 +127,7 @@ export default class App extends Component {
                                   activeTintColor: "tomato",
                                   inactiveTintColor: "black",
                               }}
+                              initialRouteName = "core"
                           >
                               <tab.Screen name="feed" component={Feed}/>
                               <tab.Screen name="core" component={coreNavigateFunc}/>
