@@ -19,27 +19,29 @@ export default class ProfileScreenHeader extends Component {
       <View style={{flex: 1}}>
         <View style = {{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: '5%' }}>
           
-          <div style = {{flex: 1}}>
+          <View style = {{flex: 1}}>
             <Thumbnail circle large
               source={{ uri: "https://picsum.photos/199/300" }}
               style={{ alignSelf: 'center', marginLeft: '5%' }}
             /> 
-          </div>
+          </View>
 
-          <div style = {{flex: 1}}>
-            <Text style={{ fontFamily: 'Roboto', fontWeight: 500, fontSize: 18, color:'#000000' }}> Michael Hla</Text>
+          <View style = {{flex: 1}}>
+            <Text style={{ fontFamily: 'Arial', fontSize: 18, color:'#000000' }}> Michael Hla</Text>
             <Text> @michaelh40 </Text>  
-          </div>
+          </View>
 
-          <div style = {{flex: 1, justifyContent: 'center', flexDirection: 'row-reverse'}}>
+          <View style = {{flex: 1, justifyContent: 'center', flexDirection: 'row-reverse'}}>
             <ClockIcon style={{position: 'absolute', right: 5, top: 15}}/>
-          </div>
+          </View>
            
         </View>
 
         <View style = {{flex: 1}}>
         </View>
       </View>    
+
+
     );
   }
 }

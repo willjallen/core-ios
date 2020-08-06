@@ -5,7 +5,8 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {createStackNavigator} from "@react-navigation/stack";
 
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Ionicons } from '@expo/vector-icons';
+
 // Navigators
 import Feed from "./Components/FeedPage/FeedTab";
 import Core from "./Components/CorePage/Main";
@@ -28,6 +29,8 @@ import rootSaga from './redux-saga/sagas/RootSaga'
 import SessionContext  from './Contexts/SessionContext'
 
 import { useNavigation } from '@react-navigation/native';
+
+import * as Font from 'expo-font';
 // Sagae-redux handling
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
@@ -75,6 +78,8 @@ Otherwise navigate to Main
 */
 export default class App extends Component {
 
+
+
     constructor(props){
         super(props);
       
@@ -88,6 +93,7 @@ export default class App extends Component {
         // State also contains the updater function so it will
         // be passed down into the context provider
         this.state = {
+            loading: true,
             isLoggedIn: true,
             updateSession: this.updateSession,
         };
@@ -96,11 +102,18 @@ export default class App extends Component {
 
 
 
+    async componentWillMount() {
+
+    this.setState({ loading: false });
+  }
+
+
+
 
 
 
   render() {
-
+    if(!this.state.loading){
       return (
           <Provider store={store}>
               <SessionContext.Provider value={this.state}>
@@ -145,8 +158,12 @@ export default class App extends Component {
               }</NavigationContainer>
               </SessionContext.Provider>
           </Provider>
-      );
+
+    );
+  } else {
+    return null;
   }
+}
 }
 
 const styles = StyleSheet.create({
