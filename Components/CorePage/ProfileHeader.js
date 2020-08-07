@@ -11,6 +11,7 @@ import {
 } from "native-base";
 
 import ClockIcon from "../../assets/svg/ClockIcon"
+import GoatIcon from "../../assets/svg/GoatIcon"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default class ProfileScreenHeader extends Component {
@@ -22,24 +23,39 @@ export default class ProfileScreenHeader extends Component {
           <View style = {{flex: 1}}>
             <Thumbnail circle large
               source={{ uri: "https://picsum.photos/199/300" }}
-              style={{ alignSelf: 'center', marginLeft: '5%' }}
+              style={{ alignSelf: 'center', marginLeft: '5%', width: 103, height: 100, borderRadius: 103/ 2 }}
             /> 
           </View>
 
-          <View style = {{flex: 1}}>
-            <Text style={{ fontFamily: 'Arial', fontSize: 18, color:'#000000' }}> Michael Hla</Text>
-            <Text> @michaelh40 </Text>  
+          <View style = {{flex: 1, justifyContent: 'center', textAlign: 'center'}}>
+            <Text style={{ fontFamily: 'Roboto', fontWeight: 400, fontSize: 18, color:'#000000'}}> Michael Hla</Text>
+            <Text style={{fontFamily: 'Roboto', fontWeight: 400, color: '#A0A0A0', fontSize: 13}}> @michaelh40 </Text>  
           </View>
 
           <View style = {{flex: 1, justifyContent: 'center', flexDirection: 'row-reverse'}}>
-            <ClockIcon style={{position: 'absolute', right: 5, top: 15}}/>
+            <ClockIcon style={{position: 'absolute', right: 5, top: 20}}/>
           </View>
            
         </View>
 
         <View style = {{flex: 1}}>
+
+          <View style = {{flex: 1}}>
+           <Text style={{fontFamily: 'Roboto', fontSize: 13, fontWeight: 800, paddingLeft: 15}}> YOUR AWARDS </Text>
+          </View>
+
+          <View style = {{flex: 5, flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-evenly', marginTop: 11, paddingLeft: 10}}>
+           <GoatIcon/>
+           <GoatIcon/>
+           <GoatIcon/>
+           <GoatIcon/>
+           <GoatIcon/>
+
+          </View>
+
+          </View>
         </View>
-      </View>    
+          
 
 
     );
