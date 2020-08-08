@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Image, Alert, Button } from "react-native";
+import { View, Text, StyleSheet, Image, Alert} from "react-native";
 import {
   Container,
   Left,
@@ -8,6 +8,7 @@ import {
   Body,
   Thumbnail,
   CardItem,
+  Button,
 } from "native-base";
 
 import ClockIcon from "../../assets/svg/ClockIcon"
@@ -28,24 +29,26 @@ export default class ProfileScreenHeader extends Component {
           </View>
 
           <View style = {{flex: 1, justifyContent: 'center', textAlign: 'center'}}>
-            <Text style={{fontWeight: 400, fontSize: 18, color:'#000000'}}> Michael Hla</Text>
-            <Text style={{fontWeight: 400, color: '#A0A0A0', fontSize: 13}}> @michaelh40 </Text>
-            <Button title="Edit Profile" color="#FFFFFF"/>
+            <Text style={{fontWeight: '400', fontSize: 18, color:'#000000'}}> Michael Hla</Text>
+            <Text style={{fontWeight: '400', color: '#A0A0A0', fontSize: 13}}> @MICHAELH420 </Text>
+            <Button Button bordered dark small style={{justifyContent: 'center'}}>
+             <Text style={{fontSize: 10}}> Edit Account </Text> 
+            </Button>
           </View>
 
           <View style = {{flex: 1, justifyContent: 'center', flexDirection: 'row-reverse'}}>
-            <ClockIcon style={{position: 'absolute', right: 5, top: 20}}/>
+            <ClockIcon/>
           </View>
            
         </View>
 
         <View style = {{flex: 1}}>
 
-          <View style = {{flex: 1}}>
-           <Text style={{fontSize: 13, fontWeight: 800, paddingLeft: 15}}> YOUR AWARDS </Text>
+          <View style = {{flex: 2}}>
+           <Text style={{fontSize: 13, fontWeight: '800', paddingLeft: 15}}> YOUR AWARDS </Text>
           </View>
 
-          <View style = {{flex: 5, flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-evenly', marginTop: '5%', paddingLeft: 10}}>
+          <View style = {{flex: 5, flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-evenly', paddingLeft: 10}}>
            <GoatIcon/>
            <GoatIcon/>
            <GoatIcon/>

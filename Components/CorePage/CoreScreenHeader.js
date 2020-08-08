@@ -10,7 +10,7 @@ export default class CoreHeader extends Component {
   render() {
     return (
       <View style={{flex: 1, flexDirection: 'column-reverse', justifyContent: 'space-around', backgroundColor: "#ffffff"}}> 
-          <FiresideLogo style={{alignSelf: 'center', marginTop: '5%'}}/>
+          <FiresideLogo style={{alignSelf: 'center', marginTop: '10%'}}/>
         </View>
     );
   }
