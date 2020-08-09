@@ -13,7 +13,7 @@ export function* fetchAuthToken(payload) {
     try {
         const authToken = yield getAuthToken(payload);
         yield saveTokenLocally(authToken);
-        yield put({type: actions.USER_AUTH_TOKEN_SUCCEEDED, authToken: authToken});
+        yield put({type: actions.FETCH_USER_AUTH_TOKEN_SUCCEEDED, authToken: authToken});
     } catch(e){
         yield put({type: actions.USER_AUTH_TOKEN_FAILED, message: e.message});
     }

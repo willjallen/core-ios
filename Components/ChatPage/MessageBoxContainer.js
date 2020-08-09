@@ -68,10 +68,6 @@ class MessageBoxContainer extends Component {
 	}
 
 
-	componentDidMount(){
-		
-		}
-
 
 
  	render(){
@@ -82,7 +78,7 @@ class MessageBoxContainer extends Component {
 	        data={DATA}
 			renderItem={({ item, index, separators }) => (
 			    <TouchableHighlight
-			      key={item.key}
+			      key={item.id}
 			      onPress={() =>{;}}
 			      onShowUnderlay={separators.highlight}
 			      onHideUnderlay={separators.unhighlight}>
@@ -91,6 +87,7 @@ class MessageBoxContainer extends Component {
 			      </View>
 			    </TouchableHighlight>
 			  )}
+       keyExtractor={(item) => item.id}
 			/>
 			</SafeAreaView>
 			);

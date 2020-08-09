@@ -17,7 +17,7 @@ export default class ChatFooter extends Component{
 					<View>
 					 <TextInput
 					  placeholder='Message...'
-				      style={{ backgroundColor: '#C4C4C4', opacity: 0.37, radius: 6 }}
+				      style={{ backgroundColor: '#C4C4C4', opacity: 0.37}}
 				      />
 				</View>
 				</View>
