@@ -15,6 +15,7 @@ import TopicSingleView from "./Components/TopicSingleView";
 import Profile from "./Components/Profile";
 import Topic from "./Components/TopicsPage/Main";
 import LoginScreen from "./Components/LoginPage/LoginScreen";
+import ChatScreen from "./Components/ChatPage/ChatScreen"
 // Redux
 import { Provider } from 'react-redux';
 // Redux-saga
@@ -61,9 +62,10 @@ function topicNavigateFunc() {
 
 function coreNavigateFunc() {
   return (
-    <coreStack.Navigator headerMode={"none"}>
+    <coreStack.Navigator headerMode={"none"} initialRouteName = "Chat">
       <coreStack.Screen name="Core" component={Core}/>
       <coreStack.Screen name="Profile" component={Profile}/>
+      <coreStack.Screen name="Chat" component={ChatScreen}/>
     </coreStack.Navigator>
   );
 }
