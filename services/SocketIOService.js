@@ -1,6 +1,9 @@
 import feathers from '@feathersjs/feathers';
 import socketio from '@feathersjs/socketio-client';
 
+//import * as actions from "../actions";
+//import io from 'socket.io-client';
+
 const io = require('socket.io-client');
 const socket = io('http://localhost:3030');
 
@@ -22,6 +25,13 @@ export function getAuthToken(data){
 		});
 
 }
+
+
+export function getMessages(data){
+	socket.emit('get', 'messages', 1, (error, message) => {
+		console.log('Found message', message);
+	});
+}  
 
 
 export function testMessage(data) {

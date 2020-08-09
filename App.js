@@ -62,7 +62,7 @@ function topicNavigateFunc() {
 
 function coreNavigateFunc() {
   return (
-    <coreStack.Navigator headerMode={"none"} >
+    <coreStack.Navigator headerMode={"none"} initialRouteName="Chat" >
       <coreStack.Screen name="Core" component={Core}/>
       <coreStack.Screen name="Profile" component={Profile}/>
       <coreStack.Screen name="Chat" component={ChatScreen}/>
