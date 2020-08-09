@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity } from "react-native";
+import React, { useState, Component } from "react";
+import {View, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, TouchableHighlight} from "react-native";
 
 let DATA = [
   {
@@ -10,44 +10,81 @@ let DATA = [
     id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
     title: "Second Item",
   },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
+   {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f62",
+    title: "Second Item",
   },
+    {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f61",
+    title: "Second Item",
+  },
+    {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f60",
+    title: "Second Item",
+  },
+    {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f66",
+    title: "Second Item",
+  },
+    {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f67",
+    title: "Second Item",
+  },
+    {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f68",
+    title: "Second Item",
+  },
+    {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f69",
+    title: "Second Item",
+  },
+    {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f80",
+    title: "Second Item",
+  },
+    {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f81",
+    title: "Last Item",
+  },
+
 ];
 
-const Item = ({ item, onPress, style }) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
-    <Text style={styles.title}>{item.title}</Text>
-  </TouchableOpacity>
-);
 
-const MessageBoxContainer = () => {
-  const [selectedId, setSelectedId] = useState(null);
 
-  const renderItem = ({ item }) => {
-    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
+export default class MessageBoxContainer extends Component {
+	constructor(){
+		super();
+	  
+	   // this.init = this.init.bind(this);
+	    //init();
+	    
+	    
+	}
 
-    return (
-      <Item
-        item={item}
-        onPress={() => setSelectedId(item.id)}
-        style={{ backgroundColor }}
-      />
-    );
-  };
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        extraData={selectedId}
-      />
-    </SafeAreaView>
-  );
-};
+
+
+ 	render(){
+	  return (
+	    <SafeAreaView style={styles.container}>
+	      <FlatList
+	        data={DATA}
+			renderItem={({ item, index, separators }) => (
+			    <TouchableHighlight
+			      key={item.key}
+			      onPress={() =>{;}}
+			      onShowUnderlay={separators.highlight}
+			      onHideUnderlay={separators.unhighlight}>
+			      <View style={{ backgroundColor: 'white' }}>
+			        <Text>{item.title}</Text>
+			      </View>
+			    </TouchableHighlight>
+			  )}
+			/>
+			</SafeAreaView>
+			);
+	}
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -64,5 +101,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MessageBoxContainer;
 
