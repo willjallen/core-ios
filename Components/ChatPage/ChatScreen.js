@@ -4,6 +4,7 @@ import { View, Text } from 'react-native'
 import ChatScreenHeader from './ChatScreenHeader'
 
 import ChatFooter from './ChatFooter'
+import MessageBoxContainer from './MessageBoxContainer'
 
 export default class ChatScreen extends Component{
 	
@@ -16,7 +17,7 @@ export default class ChatScreen extends Component{
 				</View>
 
 				<View style={{flex: 9}}>
-					<Text> Placeholder </Text>
+					<MessageBoxContainer/>
 				</View>
 
 				<View style={{flex: 1, borderColor: '#D5D5D5', borderWidth: 1.5}}>
