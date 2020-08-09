@@ -1,5 +1,9 @@
 import React, { useState, Component } from "react";
+import { connect } from "react-redux";
 import {View, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, TouchableHighlight} from "react-native";
+
+import { fetchUserAuthToken } from "../../redux/actions/./AuthTokenActions";
+
 
 let DATA = [
   {
@@ -51,10 +55,12 @@ let DATA = [
 
 
 
-export default class MessageBoxContainer extends Component {
-	constructor(){
-		super();
-	  
+class MessageBoxContainer extends Component {
+	constructor(props){
+		super(props);
+		this.props.fetchUserAuthToken({userInput: 'test', passwordInput: 'test'});
+		
+	
 	   // this.init = this.init.bind(this);
 	    //init();
 	    
@@ -62,9 +68,14 @@ export default class MessageBoxContainer extends Component {
 	}
 
 
+	componentDidMount(){
+		
+		}
+
 
 
  	render(){
+
 	  return (
 	    <SafeAreaView style={styles.container}>
 	      <FlatList
@@ -85,6 +96,11 @@ export default class MessageBoxContainer extends Component {
 			);
 	}
 }
+
+export default connect(
+	null,
+	{ fetchUserAuthToken }
+)(MessageBoxContainer)
 
 const styles = StyleSheet.create({
   container: {
