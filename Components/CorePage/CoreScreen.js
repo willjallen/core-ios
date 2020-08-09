@@ -18,11 +18,11 @@ export default class CoreScreen extends Component {
   render() {
     return (
       <View style={{flex:1}}>
-        <View style={{flex:2, backgroundColor: "#ffffff"}}>
+        <View style={{flex:2, backgroundColor: "#FFFFFF"}}>
           <CoreScreenHeader/>
         </View>
 
-        <View style={{flex:4, backgroundColor: "#ffffff", borderColor: '#D5D5D5', borderWidth: 1.5}}>
+        <View style={{flex:4, backgroundColor: "#FFFFFF", borderColor: '#D5D5D5', borderWidth: 1.5}}>
           <ProfileHeader/>
         </View>
 
