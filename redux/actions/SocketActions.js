@@ -15,3 +15,9 @@ export const sendOnSocket = content => ({
 	}
 })
 
+export const openSocket = content => ({
+	type: actions.CREATE_SOCKET,
+	payload: {
+		content
+	}
+})

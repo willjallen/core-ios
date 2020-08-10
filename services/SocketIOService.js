@@ -51,8 +51,9 @@ export function sendMessage(message){
 
 export function listenForMessage(){
     // Receive real-time events through Socket.io
-    socket.on('created', message => console.log('New message created', message));
-
+    while(true){
+    	socket.on('created', message => console.log('New message created', message));
+	}
 }
 
 
