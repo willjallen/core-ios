@@ -1,8 +1,8 @@
-import { put, fork } from 'redux-saga/effects'
-import { sendMessage } from "../../services/SocketIOService";
+import { put, fork, take, call, apply } from 'redux-saga/effects'
 import {eventChannel} from 'redux-saga';
 import socketio from '@feathersjs/socketio-client';
 
+import * as actions from "../../redux/constants/ActionTypes";
 //import * as actions from "../actions";
 //import io from 'socket.io-client';
 
@@ -35,6 +35,7 @@ function createSocketConnection(url, namespace) {
 function createSocketChannel(socket) {
     return eventChannel(emit => {
         const eventHandler = (event) => {
+            console.log('message received');
             emit(event.payload);
         };
 
@@ -42,8 +43,14 @@ function createSocketChannel(socket) {
             emit(new Error(errorEvent.reason));
         };
 
+
+
         socket.on('message', eventHandler);
         socket.on('error', errorHandler);
+
+        socket.on('connect_failed', function(){
+         console.log('Connection Failed');
+        });
 
         const unsubscribe = () => {
             socket.off('message', eventHandler);
@@ -53,7 +60,7 @@ function createSocketChannel(socket) {
     });
 }
 
-export function listenForMessage(){
+export function listenForMessage(socket){
     // Receive real-time events through Socket.io
     while(true){
         socket.on('created', message => console.log('New message created', message));
@@ -66,28 +73,51 @@ export function* emitResponse(socket) {
 
 function* writeSocket(socket) {
     while (true) {
-        const { eventName, payload } = yield take(actions.WEBSOCKET_SEND);
-        socket.emit(eventName, payload);
+        const { eventName, payload } = yield take(actions.SOCKET_SEND);
+        
+        socket.emit('messages created', {text: payload.content});
+              socket.emit('find', 'messages', null, (error, data) => {
+              console.log('Found all messages', data);
+              console.log(error);
+            });
+        console.log("sent",'create', {text: payload.content});
     }
 }
 
 function* watchSocketChannel() {
-    console.log("bword");
-    const socket = yield createSocketConnection('http://localhost:3030', 'terminal');
-    fork(writeSocket, socket); // I've added this line
-    const socketChannel = yield createSocketChannel(socket);
+    const socket = yield call(createSocketConnection, 'http://localhost:3030', '');
+        
+        socket.on('connect', () => {
+            socket.emit('create', 'authentication', {
+              strategy: 'local',
+              email: 'hello@feathersjs.com',
+              password: 'supersecret'
+            }, function(error, authResult) {
+              console.log(authResult); 
+              // authResult will be {"accessToken": "your token", "user": user }
+              // You can now send authenticated messages to the server
+            });
 
-    console.log("socket is", socket);
+        });
 
-    /*while (true) {
+
+    yield fork(writeSocket, socket); // I've added this line
+    const socketChannel = yield call(createSocketChannel, socket);
+
+    
+    
+    while (true) {
         try {
             const payload = yield take(socketChannel);
+            console.log('payload', payload);
             yield put({type: actions.SOCKET_RECEIVED, payload});
             yield fork(emitResponse, socket);
         } catch (err) {
             console.log('socket error: ', err);
+            
         }
-    }*/
+    }
+    
 }
 
 
@@ -103,6 +133,6 @@ export function* fetchMessages(payload) {
 
 
 
-export { watchSocketChannel, writeSocket }
+export { watchSocketChannel }
 
 

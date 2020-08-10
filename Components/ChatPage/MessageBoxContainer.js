@@ -58,7 +58,7 @@ let DATA = [
 class MessageBoxContainer extends Component {
 	constructor(props){
 		super(props);
-		this.props.fetchUserAuthToken({userInput: 'test', passwordInput: 'test'});
+		//this.props.fetchUserAuthToken({userInput: 'test', passwordInput: 'test'});
 		
 	
 	   // this.init = this.init.bind(this);

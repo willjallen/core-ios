@@ -14,6 +14,7 @@ class ChatFooter extends Component{
 
 		this.sendMessage = this.sendMessage.bind(this);
 		this.updateMessageInput = this.updateMessageInput.bind(this);
+		this.props.openSocket();
 	}
 
 	updateMessageInput = input => {
@@ -21,8 +22,7 @@ class ChatFooter extends Component{
 	}
 
 	sendMessage = () => {
-		console.log(this.state.messageInput);
-		this.props.openSocket();
+		this.props.sendOnSocket(this.state.messageInput);
 		this.setState({messageInput: ""});
 	}
 
@@ -52,5 +52,5 @@ class ChatFooter extends Component{
 
 export default connect(
 	null,
-	{ openSocket }
+	{ openSocket, sendOnSocket }
 )(ChatFooter)
