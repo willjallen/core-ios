@@ -1,9 +1,11 @@
 // Our watcher Saga: spawn a new incrementAsync task on each INCREMENT_ASYNC
-import {fetchAuthToken} from "../sagas/AuthenticationSagas";
+import {fetchAuthToken, getAuthTokenLocally} from "../sagas/AuthenticationSagas";
 import {takeEvery} from 'redux-saga/effects';
 
-import {FETCH_USER_AUTH_TOKEN} from "../../redux/constants/ActionTypes";
+import * as actions from "../../redux/constants/ActionTypes";
+
 
 export function* watchLogin() {
-    yield takeEvery(FETCH_USER_AUTH_TOKEN, fetchAuthToken);
+    yield takeEvery(actions.FETCH_USER_AUTH_TOKEN, fetchAuthToken);
+    yield takeEvery(actions.GET_USER_AUTH_TOKEN, getAuthTokenLocally)
 }

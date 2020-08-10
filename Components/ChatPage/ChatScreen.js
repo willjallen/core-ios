@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 
 import ChatScreenHeader from './ChatScreenHeader'
 
-import ChatFooter from './ChatFooter'
+import ChatScreenFooter from './ChatScreenFooter'
 import MessageBoxContainer from './MessageBoxContainer'
 
 export default class ChatScreen extends Component{
@@ -21,7 +21,7 @@ export default class ChatScreen extends Component{
 				</View>
 
 				<View style={{flex: 1, borderColor: '#D5D5D5', borderWidth: 1.5}}>
-					<ChatFooter/>
+					<ChatScreenFooter/>
 				</View>
 
 			</View>

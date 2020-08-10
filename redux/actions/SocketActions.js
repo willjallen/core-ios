@@ -7,3 +7,11 @@ export const fetchUserAuthToken = content => ({
     }
 
 })
+
+export const sendOnSocket = content => ({
+	type: actions.SOCKET_SEND,
+	payload: {
+		content
+	}
+})
+

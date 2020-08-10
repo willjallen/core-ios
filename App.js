@@ -95,23 +95,12 @@ export default class App extends Component {
         // State also contains the updater function so it will
         // be passed down into the context provider
         this.state = {
-            loading: true,
+            loading: false,
             isLoggedIn: true,
             updateSession: this.updateSession,
         };
 
     }
-
-
-
-    async componentWillMount() {
-
-    this.setState({ loading: false });
-  }
-
-
-
-
 
 
   render() {
@@ -133,7 +122,7 @@ export default class App extends Component {
                                       } else if (route.name === "topics") {
                                           iconName = focused ? "ios-paper" : "ios-paper";
                                       }
-
+ 
                                       // You can return any component that you like here!
                                       return <Ionicons name={iconName} size={size} color={color}/>;
                                   },

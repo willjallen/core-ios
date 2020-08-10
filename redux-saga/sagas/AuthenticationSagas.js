@@ -19,6 +19,16 @@ export function* fetchAuthToken(payload) {
     }
 }
 
+export function* getAuthTokenLocally(){
+    yield AsyncStorage.getItem('userToken')
+    .then((data) => {
+        return data;
+    })
+    .catch((err) => {
+
+    })
+}
+
 export function* saveTokenLocally(token) {
 	yield AsyncStorage.setItem('userToken', token)
     .then((data) => {
