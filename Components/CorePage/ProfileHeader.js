@@ -15,13 +15,16 @@ import ClockIcon from "../../assets/svg/ClockIcon"
 import GoatIcon from "../../assets/svg/GoatIcon"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default class ProfileScreenHeader extends Component {
+import { useNavigation } from '@react-navigation/native';
+
+export class ProfileScreenHeader extends Component {
   render() {
+     const { navigation } = this.props;
     return (
       <View style={{flex: 1}}>
         <View style = {{flex: 1.5, flexDirection: 'row', justifyContent: 'space-between' }}>
           
-          <View style = {{flex: 1, justifyContent: 'center'}}>
+          <View style = {{flex: 1.25, justifyContent: 'center'}}>
             <Thumbnail circle large
               source={{ uri: "https://picsum.photos/199/300" }}
               style={{ alignSelf: 'center', width: 103, height: 100, borderRadius: 103/ 2 }}
@@ -31,13 +34,13 @@ export default class ProfileScreenHeader extends Component {
           <View style = {{flex: 1, justifyContent: 'center', textAlign: 'center'}}>
             <Text style={{fontWeight: '400', fontSize: 18, color:'#000000'}}> Michael Hla</Text>
             <Text style={{fontWeight: '400', color: '#A0A0A0', fontSize: 13}}> @MICHAELH420 </Text>
-            <Button Button bordered dark small style={{justifyContent: 'center'}}>
+            <Button Button bordered dark small style={{justifyContent: 'center'}} onPress={() => this.props.navigation.push('Chat')}>
              <Text style={{fontSize: 10}}> Edit Account </Text> 
             </Button>
           </View>
 
           <View style = {{flex: 1, justifyContent: 'center', flexDirection: 'row-reverse'}}>
-            <ClockIcon/>
+            <ClockIcon style={{alignSelf: 'center', marginLeft: '50%'}}/>
           </View>
            
         </View>
@@ -66,6 +69,11 @@ export default class ProfileScreenHeader extends Component {
   }
 }
 
+// Wrap and export
+export default function(props) {
+  const navigation = useNavigation();
+  return <ProfileScreenHeader {...props} navigation={navigation} />;
+}
 
 
 const styles = StyleSheet.create({
