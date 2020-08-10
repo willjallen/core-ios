@@ -75,8 +75,8 @@ function* writeSocket(socket) {
     while (true) {
         const { eventName, payload } = yield take(actions.SOCKET_SEND);
         
-        socket.emit('messages created', {text: payload.content});
-              socket.emit('find', 'messages', null, (error, data) => {
+        socket.emit('create', 'messages', {text: payload.content});
+        socket.emit('find', 'messages', null, (error, data) => {
               console.log('Found all messages', data);
               console.log(error);
             });
@@ -85,8 +85,8 @@ function* writeSocket(socket) {
 }
 
 function* watchSocketChannel() {
-    const socket = yield call(createSocketConnection, 'http://localhost:3030', '');
-        
+
+    const socket = yield call(createSocketConnection, 'http://localhost:3030', '');     
         socket.on('connect', () => {
             socket.emit('create', 'authentication', {
               strategy: 'local',
