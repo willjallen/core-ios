@@ -8,4 +8,5 @@ import * as actions from '../../redux/constants/ActionTypes'
 export function* watchSocket() {
 	console.log("socket");
     yield takeEvery(actions.SOCKET_SEND, writeSocketSaga);
+    //yield takeEvery(actions.SOCKET_RECIEVE, )
 }

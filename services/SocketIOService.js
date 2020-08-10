@@ -43,11 +43,26 @@ export function testMessage(data) {
 }
 
 export function sendMessage(message){
-    console.log(message.payload.content)
+
     socket.emit('create', 'messages', {
         text: message.payload.content
     })
 }
+
+export function listenForMessage(){
+    // Receive real-time events through Socket.io
+    socket.on('created', message => console.log('New message created', message));
+
+}
+
+
+
+
+
+
+
+
+
 
 function createSocketConnection(url, namespace) {
     return io(url + '/' + namespace);
