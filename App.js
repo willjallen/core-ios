@@ -44,14 +44,22 @@ const action = type => store.dispatch({type})
 
 
 
-const tab = createBottomTabNavigator();
+const bottomTabs = createBottomTabNavigator();
 const topicStack = createStackNavigator();
 const coreStack = createStackNavigator();
+
+const chatStack = createStackNavigator();
 
 const loginStack = createStackNavigator();
 const mainStack = createStackNavigator();
 
-function topicNavigateFunc() {
+
+
+// Navigators
+
+
+
+function topicNavigatorStack() {
   return (
     <topicStack.Navigator headerMode={"none"}>
       <topicStack.Screen name="Topic" component={Topic}/>
@@ -60,18 +68,55 @@ function topicNavigateFunc() {
   );
 }
 
-function coreNavigateFunc() {
+function coreNavigationStack() {
   return (
     <coreStack.Navigator headerMode={"none"} initialRouteName="Core" >
       <coreStack.Screen name="Core" component={Core}/>
       <coreStack.Screen name="Profile" component={Profile}/>
-      <coreStack.Screen name="Chat" component={ChatScreen}/>
     </coreStack.Navigator>
   );
 }
 
 
+function bottomTabNavigationStack() {
+  return (
+    <bottomTabs.Navigator
+        screenOptions={({route}) => ({
+            tabBarIcon: ({focused, color, size}) => {
+                let iconName;
+                if (route.name === "core") {
+                    iconName = focused ? "ios-disc" : "ios-disc";
+                } else if (route.name === "feed") {
+                    iconName = focused ? "ios-home" : "ios-home";
+                } else if (route.name === "topics") {
+                    iconName = focused ? "ios-paper" : "ios-paper";
+                }
 
+                // You can return any component that you like here!
+                return <Ionicons name={iconName} size={size} color={color}/>;
+            },
+        })}
+        tabBarOptions={{
+            activeTintColor: "tomato",
+            inactiveTintColor: "black",
+        }}
+        initialRouteName = "core"
+    >
+        <bottomTabs.Screen name="feed" component={Feed}/>
+        <bottomTabs.Screen name="core" component={coreNavigationStack}/>
+        <bottomTabs.Screen name="topics" component={topicNavigatorStack}/>
+    </bottomTabs.Navigator>
+  )
+}
+
+function mainStackNavigator(){
+  return (
+    <mainStack.Navigator headerMode={"none"} initialRouteName="Chat">
+      <mainStack.Screen name ="bottomTabs"  component={bottomTabNavigationStack}/>
+      <mainStack.Screen name ="Chat" component={ChatScreen}/>
+    </mainStack.Navigator>
+    )
+}
 
 
 /*
@@ -111,32 +156,7 @@ export default class App extends Component {
               <NavigationContainer>{
                   this.state.isLoggedIn ? (
                       <>
-                          <tab.Navigator
-                              screenOptions={({route}) => ({
-                                  tabBarIcon: ({focused, color, size}) => {
-                                      let iconName;
-                                      if (route.name === "core") {
-                                          iconName = focused ? "ios-disc" : "ios-disc";
-                                      } else if (route.name === "feed") {
-                                          iconName = focused ? "ios-home" : "ios-home";
-                                      } else if (route.name === "topics") {
-                                          iconName = focused ? "ios-paper" : "ios-paper";
-                                      }
- 
-                                      // You can return any component that you like here!
-                                      return <Ionicons name={iconName} size={size} color={color}/>;
-                                  },
-                              })}
-                              tabBarOptions={{
-                                  activeTintColor: "tomato",
-                                  inactiveTintColor: "black",
-                              }}
-                              initialRouteName = "core"
-                          >
-                              <tab.Screen name="feed" component={Feed}/>
-                              <tab.Screen name="core" component={coreNavigateFunc}/>
-                              <tab.Screen name="topics" component={topicNavigateFunc}/>
-                          </tab.Navigator>
+                      {mainStackNavigator()}
 
                       </>
                   ) : (

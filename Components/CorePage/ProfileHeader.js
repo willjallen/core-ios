@@ -31,7 +31,7 @@ export class ProfileScreenHeader extends Component {
             /> 
           </View>
 
-          <View style = {{flex: 1, justifyContent: 'center', textAlign: 'center'}}>
+          <View style = {{flex: 1, justifyContent: 'center'}}>
             <Text style={{fontWeight: '400', fontSize: 18, color:'#000000'}}> Michael Hla</Text>
             <Text style={{fontWeight: '400', color: '#A0A0A0', fontSize: 13}}> @MICHAELH420 </Text>
             <Button Button bordered dark small style={{justifyContent: 'center'}} onPress={() => this.props.navigation.push('Chat')}>
