@@ -21,7 +21,6 @@ const RenderMessage = ({ item }) => (
 const MessageList = ({ messages, onLayout }) => (
     <FlatList
         data={messages}
-        keyExtractor={(messages) => messages.id}
         renderItem={({item, index, seperators}) => (
             <View>
               <Text>
