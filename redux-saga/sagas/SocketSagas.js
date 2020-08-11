@@ -35,8 +35,9 @@ function createSocketConnection(url, namespace) {
 function createSocketChannel(socket) {
     return eventChannel(emit => {
         const eventHandler = (event) => {
-            console.log('message received');
-            emit(event.payload);
+          //console.log(event);
+          emit(event);
+          //receiveMessages(event.payload)
         };
 
         const errorHandler = (errorEvent) => {
@@ -45,7 +46,7 @@ function createSocketChannel(socket) {
 
 
 
-        socket.on('message', eventHandler);
+        socket.on('messages created', eventHandler);
         socket.on('error', errorHandler);
 
         socket.on('connect_failed', function(){
@@ -95,20 +96,24 @@ function* writeSocket(socket) {
 
 function* watchSocketChannel() {
 
-    const socket = yield call(createSocketConnection, 'http://localhost:3030', '');     
+    const socket = yield call(createSocketConnection, 'http://172.16.2.178:3030', '');     
+       
         socket.on('connect', () => {
+          console.log('Socket connected to the server')
             socket.emit('create', 'authentication', {
               strategy: 'local',
               email: 'hello@feathersjs.com',
               password: 'supersecret'
             }, function(error, authResult) {
               console.log(authResult); 
+              console.log(error);
               // authResult will be {"accessToken": "your token", "user": user }
               // You can now send authenticated messages to the server
             });
 
-        });
 
+        });
+        console.log('socket', socket)
 
     yield fork(writeSocket, socket); // I've added this line
     const socketChannel = yield call(createSocketChannel, socket);
@@ -118,9 +123,10 @@ function* watchSocketChannel() {
     while (true) {
         try {
             const payload = yield take(socketChannel);
-            console.log('payload', payload);
-            yield put({type: actions.SOCKET_RECEIVED, payload});
-            yield fork(emitResponse, socket);
+            console.log('payload', {id: payload._id, text: payload.text});
+            const cleanPayload = {id: payload._id, text: payload.text};
+            yield put({type: actions.RECEIVED_MESSAGES, id: payload._id, text: payload.text});
+
         } catch (err) {
             console.log('socket error: ', err);
             

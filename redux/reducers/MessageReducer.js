@@ -6,7 +6,13 @@ const message = (state, action) => {
     switch (action.type) {
         case 'SOCKET_SEND':
             return {
-                id: action.id,
+                key: action.id,
+                text: action.text,
+            }
+         case(actions.RECEIVED_MESSAGES):
+            console.log('action1', action);
+            return {
+                key: action.id,
                 text: action.text,
             }
         default:
@@ -28,6 +34,12 @@ export const messages = (state = [], action) => {
                 message(undefined, action)
                 ]
             }
+        case(actions.RECEIVED_MESSAGES):
+            console.log('action is here', action);
+            return [
+            ...state,
+            message(undefined, action)
+            ]
 		case(actions.BEGIN_MESSAGE_FETCH):
 			return { isFetching: true,
 				...state};
