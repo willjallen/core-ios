@@ -72,17 +72,26 @@ export function* emitResponse(socket) {
 }
 
 function* writeSocket(socket) {
+  console.log("write socket enabled");
     while (true) {
-        const { eventName, payload } = yield take(actions.SOCKET_SEND);
+        const { eventName, namespace, params, payload } = yield take(actions.SOCKET_SEND);
+        console.log(eventName, namespace, params, payload);
+
+        if(!payload){
+          socket.emit(eventName, namespace)
+        }else{
+           socket.emit(eventName, namespace, {text: payload});
+        }
         
-        socket.emit('create', 'messages', {text: payload.content});
-        socket.emit('find', 'messages', null, (error, data) => {
-              console.log('Found all messages', data);
-              console.log(error);
-            });
-        console.log("sent",'create', {text: payload.content});
+       
+        //console.log("sent",'create', {text: payload});
     }
 }
+
+
+
+
+
 
 function* watchSocketChannel() {
 
@@ -121,15 +130,6 @@ function* watchSocketChannel() {
 }
 
 
-export function* fetchMessages(payload) {
-    yield console.log("payload", payload);
-    try {
-        const authToken = yield getAuthToken(payload);
-        yield put({type: "CREATE_SOCKET", authToken: authToken});
-    } catch(e){
-        yield put({type: "USER_AUTH_TOKEN_FAILED", message: e.message});
-    }
-}
 
 
 

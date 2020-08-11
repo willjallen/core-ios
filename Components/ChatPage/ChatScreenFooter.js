@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import AddIcon from "../../assets/svg/./AddIcon.js"
 
 import { sendOnSocket, openSocket} from "../../redux/actions/./SocketActions";
+import { sendMessage } from "../../redux/actions/./MessageActions";
 
 class ChatFooter extends Component{
 	
@@ -22,7 +23,9 @@ class ChatFooter extends Component{
 	}
 
 	sendMessage = () => {
-		this.props.sendOnSocket(this.state.messageInput);
+		console.log("Button pressed 1");
+		this.props.sendMessage(this.state.messageInput, null);
+		console.log(this.state.messageInput);
 		this.setState({messageInput: ""});
 	}
 
@@ -52,5 +55,5 @@ class ChatFooter extends Component{
 
 export default connect(
 	null,
-	{ openSocket, sendOnSocket }
+	{ openSocket, sendMessage }
 )(ChatFooter)

@@ -1,30 +1,43 @@
 import React, { Component } from 'react';
 import {
-    ListView, Text, Row, Image,
-    View, Subtitle, Caption, Heading
-} from '@shoutem/ui';
-import moment from 'moment';
+    FlatList, Text, Image,
+    View, Heading
+} from 'react-native';
 
-const Message = ({ msg }) => (
-    <Row>
+
+const RenderMessage = ({ item }) => (
+    <View>
         <Image styleName="small-avatar top"
-               source={{ uri: msg.author.avatar }} />
+               source={{ uri: item.author.avatar }} />
         <View styleName="vertical">
             <View styleName="horizontal space-between">
-                <Subtitle>{msg.author.name}</Subtitle>
-                <Caption>{moment(msg.time).from(Date.now())}</Caption>
+                <Text>{item.author.name}</Text>
             </View>
-            <Text styleName="multiline">{msg.text}</Text>
+            <Text styleName="multiline">{item.text}</Text>
         </View>
-    </Row>
+    </View>
 );
 
 const MessageList = ({ messages, onLayout }) => (
+    <FlatList
+        data={messages}
+        renderItem={({item, index, seperators}) => (
+            <View>
+              <Text>
+                {item.text}
+                </Text>
+              </View>
+
+          )}
+      />
+);
+
+export default MessageList;
+
+/*
     <ListView data={messages}
               autoHideHeader={true}
               renderRow={msg => <Message msg={msg} />}
               onLayout={onLayout}
               />
-);
-
-export default MessageList;
+*/

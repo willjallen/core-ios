@@ -8,9 +8,6 @@ export const SocketReducer = (state = {}, action) => {
 			return {...state};
 		case(actions.CREATE_SOCKET):
 			return {...state};
-		case(actions.GET_MESSAGES):
-			return { messagesPayload,
-				... state};
 		default:
 			return state;
 	}

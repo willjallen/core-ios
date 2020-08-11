@@ -8,6 +8,7 @@ import MessageBoxContainer from './MessageBoxContainer'
 
 export default class ChatScreen extends Component{
 	
+	
 
 	render(){
 		return(

@@ -1,29 +1,37 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Spinner } from '@shoutem/ui';
+import { View } from 'react-native'
 
-import MessageList from '../components/MessageList';
-import { updateMessagesHeight } from '../actions';
+import MessageList from './MessageList';
+import { messages } from '../../redux/reducers/MessageReducer'
+//import { updateMessagesHeight } from '../actions';
+
+const updateMessagesHeight = event => {
+    return null;
+};
+
 
 const mapStateToProps = (state) => ({
-    messages: state.chatroom.messages,
-    isFetching: state.chatroom.meta.isFetching
+    messages: state,
+    isFetching: false
 });
 
 const Messages = connect(
     mapStateToProps
 )(({ messages, isFetching, dispatch }) => {
+    console.log(messages.messages);
     if (isFetching) {
         return (
             <View style={{paddingTop: 50,
                           paddingBottom: 50}}>
-                <Spinner />
+                
             </View>
         )
     }else{
-        return <MessageList messages={messages}
+        console.log('12334',messages.messages);
+        return <MessageList messages={messages.messages}
                             style={{minHeight: 100}}
-                            onLayout={(event) => dispatch(updateMessagesHeight(event))} />
+                            />
     }
 });
 

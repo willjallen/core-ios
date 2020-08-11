@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import {View, FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, TouchableHighlight} from "react-native";
 
 import { fetchUserAuthToken } from "../../redux/actions/./AuthTokenActions";
+import { MessageActions } from "../../redux/actions/./MessageActions";
 
+import Messages from "./Messages"
 
 let DATA = [
   {
@@ -74,21 +76,7 @@ class MessageBoxContainer extends Component {
 
 	  return (
 	    <SafeAreaView style={styles.container}>
-	      <FlatList
-	        data={DATA}
-			renderItem={({ item, index, separators }) => (
-			    <TouchableHighlight
-			      key={item.id}
-			      onPress={() =>{;}}
-			      onShowUnderlay={separators.highlight}
-			      onHideUnderlay={separators.unhighlight}>
-			      <View style={{ backgroundColor: 'white' }}>
-			        <Text>{item.title}</Text>
-			      </View>
-			    </TouchableHighlight>
-			  )}
-       keyExtractor={(item) => item.id}
-			/>
+        <Messages/>
 			</SafeAreaView>
 			);
 	}
@@ -96,7 +84,7 @@ class MessageBoxContainer extends Component {
 
 export default connect(
 	null,
-	{ fetchUserAuthToken }
+	{ MessageActions }
 )(MessageBoxContainer)
 
 const styles = StyleSheet.create({
@@ -114,4 +102,22 @@ const styles = StyleSheet.create({
   },
 });
 
+
+/*
+        <FlatList
+          data={DATA}
+      renderItem={({ item, index, separators }) => (
+          <TouchableHighlight
+            key={item.id}
+            onPress={() =>{;}}
+            onShowUnderlay={separators.highlight}
+            onHideUnderlay={separators.unhighlight}>
+            <View style={{ backgroundColor: 'white' }}>
+              <Text>{item.title}</Text>
+            </View>
+          </TouchableHighlight>
+        )}
+       keyExtractor={(item) => item.id}
+      />
+      */
 
