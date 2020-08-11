@@ -7,12 +7,14 @@ const message = (state, action) => {
         case 'SOCKET_SEND':
             return {
                 key: action.id,
+                id: action.id,
                 text: action.text,
             }
          case(actions.RECEIVED_MESSAGES):
             console.log('action1', action);
             return {
                 key: action.id,
+                id: action.id,
                 text: action.text,
             }
         default:
@@ -35,11 +37,14 @@ export const messages = (state = [], action) => {
                 ]
             }
         case(actions.RECEIVED_MESSAGES):
-            console.log('action is here', action);
-            return [
-            ...state,
-            message(undefined, action)
-            ]
+            if (state.map(m => m.id).includes(action.id)) {
+                return state;
+            }else{
+                return [
+                ...state,
+                message(undefined, action)
+                ]
+            }
 		case(actions.BEGIN_MESSAGE_FETCH):
 			return { isFetching: true,
 				...state};

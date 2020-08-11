@@ -75,13 +75,13 @@ export function* emitResponse(socket) {
 function* writeSocket(socket) {
   console.log("write socket enabled");
     while (true) {
-        const { eventName, namespace, params, payload } = yield take(actions.SOCKET_SEND);
-        console.log(eventName, namespace, params, payload);
+        const { eventName, namespace, params, id, payload } = yield take(actions.SOCKET_SEND);
+        console.log('Writing to', eventName, namespace, params, id, payload);
 
         if(!payload){
           socket.emit(eventName, namespace)
         }else{
-           socket.emit(eventName, namespace, {text: payload});
+           socket.emit(eventName, namespace, {text: payload, id: id});
         }
         
        
@@ -123,9 +123,9 @@ function* watchSocketChannel() {
     while (true) {
         try {
             const payload = yield take(socketChannel);
-            console.log('payload', {id: payload._id, text: payload.text});
-            const cleanPayload = {id: payload._id, text: payload.text};
-            yield put({type: actions.RECEIVED_MESSAGES, id: payload._id, text: payload.text});
+            console.log('Message Received', {id: payload.messageId, text: payload.text});
+            const cleanPayload = {id: payload.messageId, text: payload.text};
+            yield put({type: actions.RECEIVED_MESSAGES, id: payload.messageId, text: payload.text});
 
         } catch (err) {
             console.log('socket error: ', err);

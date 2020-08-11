@@ -19,7 +19,7 @@ const mapStateToProps = (state) => ({
 const Messages = connect(
     mapStateToProps
 )(({ messages, isFetching, dispatch }) => {
-    console.log(messages.messages);
+    console.log('Current List', messages.messages);
     if (isFetching) {
         return (
             <View style={{paddingTop: 50,
@@ -28,7 +28,6 @@ const Messages = connect(
             </View>
         )
     }else{
-        console.log('12334',messages.messages);
         return <MessageList messages={messages.messages}
                             style={{minHeight: 100}}
                             />

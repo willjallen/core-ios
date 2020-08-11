@@ -61,7 +61,7 @@ export const fetchMessages = () => {
 
 export const receiveMessages = (messages) => {
     return function (dispatch) {
-        console.log(Object.values(messages));
+        console.log('messages', Object.values(messages));
         Object.values(messages).forEach(msg => dispatch(addMessage(msg)));
 
         dispatch(receivedMessages());
