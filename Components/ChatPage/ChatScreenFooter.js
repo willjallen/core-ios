@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, TextInput, TouchableOpacity } from 'react-native'
+import { View, TextInput, TouchableOpacity, Alert } from 'react-native'
 import { connect } from "react-redux";
 
 import AddIcon from "../../assets/svg/./AddIcon.js"
@@ -7,6 +7,17 @@ import SendIcon from "../../assets/svg/./SendIcon.js"
 
 import { sendOnSocket, openSocket} from "../../redux/actions/./SocketActions";
 import { sendMessage } from "../../redux/actions/./MessageActions";
+
+
+function makeid(length) {
+   var result           = '';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   var charactersLength = characters.length;
+   for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+}
 
 class ChatFooter extends Component{
 	
@@ -19,13 +30,42 @@ class ChatFooter extends Component{
 		this.props.openSocket();
 	}
 
+		    
+
+
+	componentDidMount(){
+/*
+	Alert.prompt(
+	      "[Debug] Set Name",
+	      "",
+	      [
+	        {
+	          text: "Cancel",
+	          onPress: () => console.log("Cancel Pressed"),
+	          style: "cancel"
+	        },
+	        {
+	          text: "OK",
+	          onPress: name => this.setState({name: name})
+	        }
+	      ]
+	    );
+	*/
+
+	
+
+	this.setState({name: 'User-'+makeid(4)});
+}
+
 	updateMessageInput = input => {
 		this.setState({messageInput: input});
 	}
 
+
 	sendMessage = () => {
 		console.log("Button pressed 1");
-		this.props.sendMessage(this.state.messageInput, null);
+		const user = ({name: this.state.name})
+		this.props.sendMessage(this.state.messageInput, user);
 		console.log(this.state.messageInput);
 		this.setState({messageInput: ""});
 	}
@@ -33,7 +73,7 @@ class ChatFooter extends Component{
 
 	render(){
 		return(
-			<View style={{flex:1, flexDirection: 'row'}}>
+			<View style={{flex:1, flexDirection: 'row', paddingBottom: '10%'}}>
 				<View style={{flex:1, justifyContent: 'center'}}>
 					<TouchableOpacity style={{alignItems: 'center'}}>
 						<AddIcon/>
@@ -48,12 +88,14 @@ class ChatFooter extends Component{
 				      value={this.state.messageInput}
 				      />
 					</View>
-					<SendIcon style={{position: 'absolute', top: 5, right: 1}} onPress={this.sendMessage}/>
+					<SendIcon style={{position: 'absolute', top: -10, right: 1}} onPress={this.sendMessage}/>
 				</View>
 			</View>
 		);
 	}
 }
+
+
 
 export default connect(
 	null,

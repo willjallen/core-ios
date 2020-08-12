@@ -11,7 +11,7 @@ export class ChatScreenHeader extends Component{
 		const { navigation } = this.props;
 		return(
 			<View style={{flex: 1, flexDirection: 'row'}}>
-			<TouchableOpacity onPress={() => this.props.navigation.pop()}>
+			<TouchableOpacity onPress={() => this.props.navigation.popToTop()}>
 				<View style={{flex:1, justifyContent: 'center', width:100}}>
 						<LeftActionIcon style={{alignSelf: 'flex-start'}}/>
 				</View>

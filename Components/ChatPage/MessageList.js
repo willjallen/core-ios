@@ -24,7 +24,7 @@ const MessageList = ({ messages, onLayout }) => (
         renderItem={({item, index, seperators}) => (
             <View>
               <Text>
-                {item.text}
+                {item.user.name + ': ' + item.text}
                 </Text>
               </View>
 

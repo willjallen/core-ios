@@ -111,7 +111,7 @@ function bottomTabNavigationStack() {
 
 function mainStackNavigator(){
   return (
-    <mainStack.Navigator headerMode={"none"} initialRouteName="Chat">
+    <mainStack.Navigator headerMode={"none"}>
       <mainStack.Screen name ="bottomTabs"  component={bottomTabNavigationStack}/>
       <mainStack.Screen name ="Chat" component={ChatScreen}/>
     </mainStack.Navigator>

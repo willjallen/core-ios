@@ -33,10 +33,7 @@ export const sendMessage = (text, user) => {
         let msg = {
                 text: text,
                 time: Date.now(),
-                author: {
-                    name: user.name,
-                    avatar: user.avatar
-                }
+                user: user,
             };
 
         //async send

@@ -37,7 +37,8 @@ export const sendMessage = (text, user) => ({
 	params: null,
 	text: text,
 	payload: text,
-	id: makeid(16)
+	id: makeid(16),
+	user: user
 
 })
 

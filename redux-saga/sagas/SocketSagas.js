@@ -1,6 +1,9 @@
+import {AsyncStorage} from 'react-native';
 import { put, fork, take, call, apply } from 'redux-saga/effects'
 import {eventChannel} from 'redux-saga';
 import socketio from '@feathersjs/socketio-client';
+
+import { saveLocalData, getLocalData } from "../../redux/actions/AsyncStorageActions"
 
 import * as actions from "../../redux/constants/ActionTypes";
 //import * as actions from "../actions";
@@ -75,13 +78,13 @@ export function* emitResponse(socket) {
 function* writeSocket(socket) {
   console.log("write socket enabled");
     while (true) {
-        const { eventName, namespace, params, id, payload } = yield take(actions.SOCKET_SEND);
+        const { eventName, namespace, params, id, payload, user } = yield take(actions.SOCKET_SEND);
         console.log('Writing to', eventName, namespace, params, id, payload);
 
         if(!payload){
           socket.emit(eventName, namespace)
         }else{
-           socket.emit(eventName, namespace, {text: payload, id: id});
+           socket.emit(eventName, namespace, {text: payload, id: id, user: user });
         }
         
        
@@ -96,25 +99,54 @@ function* writeSocket(socket) {
 
 function* watchSocketChannel() {
 
-    const socket = yield call(createSocketConnection, 'http://172.16.2.178:3030', '');     
+    const socket = yield call(createSocketConnection, 'http://3.129.52.188:3030', '');     
        
-        socket.on('connect', () => {
-          console.log('Socket connected to the server')
+    console.log('Fireside [Socket] : Looking for local accessToken')
+    yield put({type: actions.GET_LOCAL_DATA, key: 'accessToken'});    
+    const { data } = yield take(actions.GET_LOCAL_DATA_SUCCESSFUL)
+    console.log('here?');
+    console.log('accessToken', data)
+    let accessToken = null;
+    socket.on('connect', () => {
+
+          console.log('Fireside [Socket] : connected to the server')
+
+         
+          if(data){
+            console.log('Fireside [Socket] : accessToken found', data)
+          }else{
+            console.log('Fireside [Socket] : accessToken not found')
+            console.log('Fireside [Socket] : Attempting to fetch from server...')
+
             socket.emit('create', 'authentication', {
               strategy: 'local',
               email: 'hello@feathersjs.com',
               password: 'supersecret'
             }, function(error, authResult) {
-              console.log(authResult); 
-              console.log(error);
+              if(authResult.accessToken){
+                console.log('Fireside [Socket] : accessToken successfully fetched from server', authResult.accessToken)
+                saveLocalData('accessToken', authResult.accessToken)
+                }
+            
               // authResult will be {"accessToken": "your token", "user": user }
               // You can now send authenticated messages to the server
             });
+          }
+
+
+
 
 
         });
-        console.log('socket', socket)
+        console.log('at', accessToken)
+        if(accessToken){
+          console.log('Fireside [Socket] : Attempting to save accessToken locally')
+          yield put({type: actions.SAVE_LOCAL_DATA, key: 'accessToken', data: authResult.accessToken});
+      
 
+        }
+        
+    console.log('socket', socket)
     yield fork(writeSocket, socket); // I've added this line
     const socketChannel = yield call(createSocketChannel, socket);
 
@@ -123,7 +155,7 @@ function* watchSocketChannel() {
     while (true) {
         try {
             const payload = yield take(socketChannel);
-            console.log('Message Received', {id: payload.messageId, text: payload.text});
+            console.log('Message Received', {id: payload.messageId, text: payload.text, user:{name: payload.name} });
             const cleanPayload = {id: payload.messageId, text: payload.text};
             yield put({type: actions.RECEIVED_MESSAGES, id: payload.messageId, text: payload.text});
 
@@ -134,6 +166,8 @@ function* watchSocketChannel() {
     }
     
 }
+
+
 
 
 

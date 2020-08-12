@@ -9,6 +9,7 @@ const message = (state, action) => {
                 key: action.id,
                 id: action.id,
                 text: action.text,
+                user: action.user
             }
          case(actions.RECEIVED_MESSAGES):
             console.log('action1', action);
@@ -16,6 +17,7 @@ const message = (state, action) => {
                 key: action.id,
                 id: action.id,
                 text: action.text,
+                user: action.user
             }
         default:
             return state
